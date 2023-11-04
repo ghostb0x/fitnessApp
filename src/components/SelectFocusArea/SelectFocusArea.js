@@ -2,12 +2,10 @@
 import { focusAreas } from '@/data/focusAreas';
 import React from 'react';
 import Button from '../Button';
-import StartButton from '../StartButton';
 import styled from 'styled-components';
 
-
-function SelectFocusArea() {
-  const [selectedAreas, setSelectedAreas] = React.useState([]);
+  function SelectFocusArea({selectedAreas, setSelectedAreas}) {
+  
   return (
     <>
       <div>
@@ -43,7 +41,6 @@ function SelectFocusArea() {
         <h3>Today&apos;s Selected Focus Areas: {selectedAreas.join(", ")}</h3>
       </div>
 
-      <StartButton selectedFocusAreas={selectedAreas} />
     </>
   );
 }

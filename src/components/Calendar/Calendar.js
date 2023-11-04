@@ -3,12 +3,12 @@ import { sessionHistory } from '@/data/sessions';
 import React from 'react';
 import styled from 'styled-components';
 
-function Calendar() {
+function Calendar({saved}) {
   return (
     <div>
       <h2>Most recent workouts</h2>
       <List>
-        {sessionHistory.map(({ date, focusAreas, hiitDuration }) => {
+        {saved.map(({ date, focusAreas, hiitDuration }) => {
           return (
             <li key={date}>
               <p key={date}>Date: {date}</p>

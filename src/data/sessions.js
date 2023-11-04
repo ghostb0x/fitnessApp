@@ -6,6 +6,7 @@ export const sessionHistory = [
     heavyMoves: [
       {
         name: 'Pull-ups',
+        totalReps: 47,
         sets: [
           {
             id: 1,

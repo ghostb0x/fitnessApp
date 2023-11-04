@@ -1,24 +1,28 @@
-export const focusCategories = [
+export const focusAreas = [
   {
     id: 1,
     name: 'Legs',
+    heavyMoves: [],
   },
   {
     id: 2,
     name: 'Abs',
+    heavyMoves: [],
+    
   },
   {
     id: 3,
     name: 'Lower Back',
+    heavyMoves: [],
   },
   {
     id: 4,
     name: 'Upper Back',
-    exercises: ['Pull-ups'],
+    heavyMoves: ['Pull-ups'],
   },
   {
     id: 5,
     name: 'Chest',
-    exercises: ['Push-ups', 'Dips'],
+    heavyMoves: ['Push-ups', 'Dips'],
   },
 ];

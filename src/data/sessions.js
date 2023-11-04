@@ -1,6 +1,9 @@
 export const sessionHistory = [
   {
     date: '11/3/2023',
+    time: '',
+    startTime: '',    
+    endTime: '',
     focusAreas: ['Lower Back', 'Upper Back'],
     hiitDuration: 20,
     heavyMoves: [
@@ -31,6 +34,9 @@ export const sessionHistory = [
   },
   {
     date: '11/2/2023',
+    time: '',
+    startTime: '',
+    endTime: '',
     focusAreas: ['Legs'],
     hiitDuration: 30,
     heavyMoves: [],

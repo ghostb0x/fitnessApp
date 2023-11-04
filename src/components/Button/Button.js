@@ -6,20 +6,15 @@ function Button({children, ...delegated}) {
 }
 
 const B = styled.button`
-align-self: center;
   
   margin-top: ${(props) => props.$marginTop || '10px'};
   margin-left: 5px;
   margin-right: 5px;
   
-  width: ${(props) => props.$width || '90%'};
+  width: ${(props) => props.$width || "auto"};
   border: none;
   border-radius: 10rem;
   padding: 0.5rem 3rem;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   background: ${(props) => props.$color || `var(--color-accent)`};
   text-align: center;

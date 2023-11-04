@@ -7,8 +7,10 @@ import Calendar from '@/components/Calendar';
 import StartButton from '@/components/StartButton';
 
 export default function Home() {
+  // need to move these into context - too many props on these components
   const [saved, setSaved] = React.useState([]);
   const [selectedAreas, setSelectedAreas] = React.useState([]);
+  const [currentSession, setCurrentSession] = React.useState({});
 
   //initialize saved sessions from local storage - leave as empty array if none found
   React.useEffect(() => {
@@ -19,6 +21,14 @@ export default function Home() {
   }, []);
 
 
+  function startSession(sesh) {
+    setCurrentSession(sesh)
+    const newSaves = structuredClone(saved);
+    newSaves.unshift(sesh);
+    const stringifiedSaves = JSON.stringify(newSaves);
+    window.localStorage.setItem('saved-sessions', stringifiedSaves);
+    setSaved(newSaves);
+  }
 
   return (
     <main className={styles.main}>
@@ -27,7 +37,10 @@ export default function Home() {
         selectedAreas={selectedAreas}
         setSelectedAreas={setSelectedAreas}
       />
-      <StartButton selectedAreas={selectedAreas} saved={saved} setSaved={setSaved} />
+      <StartButton
+        selectedAreas={selectedAreas}
+        startSession={startSession}
+      />
     </main>
   );
 }

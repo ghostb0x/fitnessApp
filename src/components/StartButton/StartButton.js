@@ -4,9 +4,8 @@ import moment from 'moment';
 import Button from '../Button';
 import { focusAreas } from '@/data/focusAreas';
 // actually comes from local storage
-import { sessionHistory } from '@/data/sessions';
 
-function StartButton({ selectedAreas, saved, setSaved }) {
+function StartButton({ selectedAreas, startSession }) {
   let today = moment().format('l');
   let startTime = moment().format('LT');
 
@@ -34,15 +33,6 @@ function StartButton({ selectedAreas, saved, setSaved }) {
     heavyMoves: todaysHeavyMoves,
     difficulty: 7,
   };
-
-  //save session to state var and local storage
-  function startSession(sesh) {
-    const newSaves = structuredClone(saved);
-    newSaves.unshift(sesh);
-    const stringifiedSaves = JSON.stringify(newSaves);
-    window.localStorage.setItem('saved-sessions', stringifiedSaves);
-    setSaved(newSaves);
-  }
 
   return (
     <div>

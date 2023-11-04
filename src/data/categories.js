@@ -14,10 +14,11 @@ export const focusCategories = [
   {
     id: 4,
     name: 'Upper Back',
-    
+    exercises: ['Pull-ups'],
   },
   {
     id: 5,
     name: 'Chest',
+    exercises: ['Push-ups', 'Dips'],
   },
 ];

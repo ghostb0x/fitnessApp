@@ -28,6 +28,8 @@ export default function Home() {
     const stringifiedSaves = JSON.stringify(newSaves);
     window.localStorage.setItem('saved-sessions', stringifiedSaves);
     setSaved(newSaves);
+
+    // add change screen to show current workout interface
   }
 
   return (

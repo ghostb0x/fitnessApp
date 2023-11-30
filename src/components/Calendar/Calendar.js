@@ -10,10 +10,10 @@ function Calendar({saved}) {
       <List>
         {saved.map(({ date, focusAreas, hiitDuration }) => {
           return (
-            <li key={date}>
-              <p key={date}>Date: {date}</p>
+            <li key={date}>hoowa!
+              <p key={date}>Date: {date}</p>hoowa!
               <p key={date}>Focus areas: {focusAreas.join(' + ')} </p>
-              <p key={date}>HIIT Duration: {hiitDuration}</p>
+              <p key={date}>HIIT Duration: {hiitDuration}</p>hoowa!
             </li>
           );
         })}

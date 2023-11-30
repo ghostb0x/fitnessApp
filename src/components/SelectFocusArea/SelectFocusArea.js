@@ -15,6 +15,7 @@ import styled from 'styled-components';
         {focusAreas.map(({ id, name }) => {
           return (
             <Button
+            color='blue'
             key={id}
             onClick={() => {
               // if already in list, clicking removes

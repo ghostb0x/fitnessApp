@@ -4,7 +4,7 @@ export const COLORS = {
   offblack: 'hsl(0deg 0% 14%)',
   black: 'hsl(0deg 0% 8%)',
   green: 'hsl(153deg 71% 59%)',
-  primary: 'hsla(49.33deg, 54.22%, 83.73%, 1)',
+  primary: '#007bff',
   purple: 'hsla(261deg, 59%, 70%, 1)',
 
 };

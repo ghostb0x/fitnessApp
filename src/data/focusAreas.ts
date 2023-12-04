@@ -1,4 +1,6 @@
-export const focusAreas = [
+import { focusAreaType } from '@/lib/types'
+
+export const focusAreas: focusAreaType[] = [
   {
     id: 1,
     name: 'Legs',

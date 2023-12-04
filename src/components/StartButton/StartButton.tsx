@@ -2,20 +2,34 @@
 import React from 'react';
 import moment from 'moment';
 import Button from '../Button';
+import {
+  focusAreaNames,
+  focusAreaType,
+  heavyMove,
+  session,
+} from '@/lib/types';
 import { focusAreas } from '@/data/focusAreas';
 // actually comes from local storage
 
-function StartButton({ selectedAreas, startSession }) {
+interface StartButtonProps {
+  selectedAreas: focusAreaNames[];
+  startSession: (sesh: session) => void;
+}
+
+function StartButton({
+  selectedAreas,
+  startSession,
+}: StartButtonProps) {
   let today = moment().format('l');
   let startTime = moment().format('LT');
 
-  let todaysHeavyMoves = [];
+  let todaysHeavyMoves: string[] = [];
   if (selectedAreas.length) {
     selectedAreas.forEach((selectedArea) => {
       const foundAreas = focusAreas.filter(
         (area) => area.name === selectedArea
       );
-      foundAreas.forEach(({ heavyMoves }) => {
+      foundAreas.forEach(({ heavyMoves }: focusAreaType) => {
         if (heavyMoves.length) {
           heavyMoves.forEach((heavyMove) =>
             todaysHeavyMoves.push(heavyMove)
@@ -24,14 +38,15 @@ function StartButton({ selectedAreas, startSession }) {
       });
     });
   }
-  const newSession = {
+  const newSession: session = {
     date: today,
     startTime: startTime,
     endTime: '',
+    timeSpent: '',
     focusAreas: selectedAreas,
     hiitDuration: 20,
-    heavyMoves: todaysHeavyMoves,
-    difficulty: 7,
+    heavyMoves: [],
+    difficulty: 0,
   };
 
   return (
@@ -44,7 +59,10 @@ function StartButton({ selectedAreas, startSession }) {
       <p>Workout:</p>
       <p>Hiit Warmup</p>
       <p>and some of these: {todaysHeavyMoves.join(', ')}</p>
-      <Button onClick={() => startSession(newSession)}>
+      <Button
+        onClick={() => startSession(newSession)}
+        color={'#12b300'}
+      >
         Start Workout
       </Button>
     </div>

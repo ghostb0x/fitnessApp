@@ -21,7 +21,7 @@ const B = styled.button`
   border-radius: 10rem;
   padding: 0.5rem 3rem;
 
-  background: ${(props) => props.color || `var(--color-primary)`};
+  background-color: ${(props) => props.color || `var(--color-primary)`};
   text-align: center;
   font-family: var(--font-roboto);
   font-size: 1.3rem;

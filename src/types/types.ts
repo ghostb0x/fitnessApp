@@ -21,6 +21,7 @@ export type focusAreaNames =
 export interface focusAreaType {
     id: number;
     name: focusAreaNames;
+    imageSlug: string;
     heavyMoves: string[];
 }
 

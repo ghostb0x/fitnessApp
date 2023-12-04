@@ -1,12 +1,12 @@
-import { session } from '@/lib/types'
+import { session } from '@/types/types';
 
 export const sessionHistory: session[] = [
   {
     date: '11/3/2023',
-    startTime: '',    
+    startTime: '',
     endTime: '',
     timeSpent: '',
-    focusAreas: ['Lower Back', 'Upper Back + Biceps' ],
+    focusAreas: ['Lower Back', 'Upper Back + Biceps'],
     hiitDuration: 20,
     difficulty: 5,
     heavyMoves: [

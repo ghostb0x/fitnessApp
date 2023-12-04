@@ -5,13 +5,18 @@ import styles from './page.module.css';
 import SelectFocusArea from '@/components/SelectFocusArea';
 import Calendar from '@/components/Calendar';
 import StartButton from '@/components/StartButton';
-import { session, focusAreaNames } from '@/lib/types';
+import { session, focusAreaNames } from '@/types/types';
 
 export default function Home() {
   // need to move these into context - too many props on these components
-  const [savedSessions, setSavedSessions] = React.useState<session[]>([]);
-  const [selectedAreas, setSelectedAreas] = React.useState<focusAreaNames[]>([]);
-  const [currentSession, setCurrentSession] = React.useState<session | null>(null);
+  const [savedSessions, setSavedSessions] = React.useState<session[]>(
+    []
+  );
+  const [selectedAreas, setSelectedAreas] = React.useState<
+    focusAreaNames[]
+  >([]);
+  const [currentSession, setCurrentSession] =
+    React.useState<session | null>(null);
 
   //initialize saved sessions from local storage - leave as empty array if none found
   React.useEffect(() => {
@@ -42,7 +47,6 @@ export default function Home() {
       <StartButton
         selectedAreas={selectedAreas}
         startSession={startSession}
-        
       />
     </main>
   );

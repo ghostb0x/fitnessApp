@@ -3,7 +3,7 @@ import { sessionHistory } from '@/data/sessions';
 import { CalendarKey } from 'moment';
 import React from 'react';
 import styled from 'styled-components';
-import { heavyMove, session } from '@/lib/types';
+import { heavyMove, session } from '@/types/types';
 
 interface CalendarProps {
   savedSessions: session[];

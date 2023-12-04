@@ -7,7 +7,7 @@ import {
   focusAreaType,
   heavyMove,
   session,
-} from '@/lib/types';
+} from '@/types/types';
 import { focusAreas } from '@/data/focusAreas';
 // actually comes from local storage
 

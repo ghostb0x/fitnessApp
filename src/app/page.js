@@ -8,7 +8,7 @@ import StartButton from '@/components/StartButton';
 
 export default function Home() {
   // need to move these into context - too many props on these components
-  const [saved, setSaved] = React.useState([]);
+  const [savedSessions, setSavedSessions] = React.useState([]);
   const [selectedAreas, setSelectedAreas] = React.useState([]);
   const [currentSession, setCurrentSession] = React.useState({});
 
@@ -16,25 +16,24 @@ export default function Home() {
   React.useEffect(() => {
     const stored = window.localStorage.getItem('saved-sessions');
     if (stored) {
-      setSaved(JSON.parse(stored));
+      setSavedSessions(JSON.parse(stored));
     }
   }, []);
 
-
   function startSession(sesh) {
-    setCurrentSession(sesh)
-    const newSaves = structuredClone(saved);
+    setCurrentSession(sesh);
+    const newSaves = structuredClone(savedSessions);
     newSaves.unshift(sesh);
     const stringifiedSaves = JSON.stringify(newSaves);
     window.localStorage.setItem('saved-sessions', stringifiedSaves);
-    setSaved(newSaves);
+    setSavedSessions(newSaves);
 
     // add change screen to show current workout interface
   }
 
   return (
     <main className={styles.main}>
-      <Calendar saved={saved} />
+      <Calendar savedSessions={savedSessions} />
       <SelectFocusArea
         selectedAreas={selectedAreas}
         setSelectedAreas={setSelectedAreas}

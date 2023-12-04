@@ -1,9 +1,9 @@
 'use client';
 import { focusAreas } from '@/data/focusAreas';
 import React from 'react';
-import Button from '../Button';
 import styled from 'styled-components';
 import { focusAreaNames, focusAreaType } from '@/lib/types';
+import SelectFocusAreaButton from '../SelectFocusAreaButton';
 
 interface SelectedFocusAreasProps {
   selectedAreas: focusAreaNames[];
@@ -21,25 +21,12 @@ function SelectFocusArea({
         <ButtonBlock>
           {focusAreas.map(({ id, name }: focusAreaType) => {
             return (
-              <Button
+              <SelectFocusAreaButton
                 key={id}
-                onClick={() => {
-                  // if already in list, clicking removes
-                  if (selectedAreas.some((area) => area === name)) {
-                    const newFocusAreas = selectedAreas.filter(
-                      (area) => area !== name
-                    );
-                    setSelectedAreas(newFocusAreas);
-                  } else {
-                    // if name not in list, clicking adds
-                    const newFocusAreas = [...selectedAreas];
-                    newFocusAreas.push(name);
-                    setSelectedAreas(newFocusAreas);
-                  }
-                }}
-              >
-                {name}
-              </Button>
+                selectedAreas={selectedAreas}
+                setSelectedAreas={setSelectedAreas}
+                focusAreaName={name}
+              />
             );
           })}
         </ButtonBlock>

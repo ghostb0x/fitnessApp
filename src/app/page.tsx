@@ -26,6 +26,11 @@ export default function Home() {
     }
   }, []);
 
+  function deleteSavedSession(deleteIndex: number) {
+    const filtered = savedSessions.filter((_, index) => index !== deleteIndex)
+    setSavedSessions(filtered);
+  }
+
   function startSession(sesh: session) {
     setCurrentSession(sesh);
     const newSaves = structuredClone(savedSessions);
@@ -39,7 +44,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <Calendar savedSessions={savedSessions} />
+      <Calendar savedSessions={savedSessions} deleteSavedSession={deleteSavedSession} />
       <SelectFocusArea
         selectedAreas={selectedAreas}
         setSelectedAreas={setSelectedAreas}

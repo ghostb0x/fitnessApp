@@ -46,6 +46,7 @@ function SelectFocusAreaButton({
           alt={`${focusAreaName} Muscle Image`}
           height={230}
           width={110}
+          priority={(focusAreaName === 'Abs' || focusAreaName === 'Chest') ? true : false}
         />
       </ButtonContents>
     </RectangleButton>

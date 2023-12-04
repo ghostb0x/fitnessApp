@@ -3,11 +3,12 @@ import styled from 'styled-components';
 
 interface ButtonProps {
   children: React.ReactNode;
+  onClick?: () => void;
   color?: string;
 }
 
-function Button({ children, color, ...delegated }: ButtonProps) {
-  return <B color={color} {...delegated}>{children}</B>;
+function Button({ children, color, onClick, ...delegated }: ButtonProps) {
+  return <B color={color} onClick={onClick} {...delegated}>{children}</B>;
 }
 
 const B = styled.button`

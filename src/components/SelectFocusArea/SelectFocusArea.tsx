@@ -4,7 +4,13 @@ import React from 'react';
 import Button from '../Button';
 import styled from 'styled-components';
 
-  function SelectFocusArea({selectedAreas, setSelectedAreas}) {
+
+interface SeletedFocusAreasProps {
+  selectedAreas: string[];
+  setSelectedAreas: (focusAreas: string[]) => void;
+}
+
+  function SelectFocusArea({selectedAreas, setSelectedAreas}: SeletedFocusAreasProps) {
   
   return (
     <>

@@ -2,7 +2,7 @@ export const focusAreas = [
   {
     id: 1,
     name: 'Legs',
-    heavyMoves: [],
+    heavyMoves: ['Squats', 'Lunges', 'Glute Abductors (Out)', 'Glute Adductors (Squeeze)'],
   },
   {
     id: 2,
@@ -13,16 +13,16 @@ export const focusAreas = [
   {
     id: 3,
     name: 'Lower Back',
-    heavyMoves: [],
+    heavyMoves: ['Deadlifts'],
   },
   {
     id: 4,
-    name: 'Upper Back',
-    heavyMoves: ['Pull-ups'],
+    name: 'Upper Back + Biceps',
+    heavyMoves: ['Pull-ups', 'Curls'],
   },
   {
     id: 5,
     name: 'Chest',
-    heavyMoves: ['Push-ups', 'Dips'],
+    heavyMoves: ['Push-ups', 'Dips', 'Bench Press', 'Flys'],
   },
 ];

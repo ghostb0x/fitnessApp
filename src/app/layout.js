@@ -2,7 +2,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import GlobalStyles from '@/styles/GlobalStyles';
 import StyledComponentsRegistry from '@/lib/registry';
-
+import { SessionsProvider } from '@/components/useSessionsProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <StyledComponentsRegistry>
           <GlobalStyles />
-          {children}
+          <SessionsProvider>{children}</SessionsProvider>
         </StyledComponentsRegistry>
       </body>
     </html>

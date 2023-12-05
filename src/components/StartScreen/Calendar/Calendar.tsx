@@ -1,21 +1,19 @@
 'use client';
 import { sessionHistory } from '@/data/sessions';
-import { CalendarKey } from 'moment';
 import React from 'react';
 import styled from 'styled-components';
-import { heavyMove, session } from '@/types/types';
 import moment from 'moment';
-import Button from '../Button';
+import Button from '../../Button';
+import { useSessionsContext } from '@/components/useSessionsProvider';
 
-interface CalendarProps {
-  savedSessions: session[];
-  deleteSavedSession: (index: number) => void;
-}
+// interface CalendarProps {
+//   savedSessions: session[];
+//   deleteSavedSession: (index: number) => void;
+// }
 
-function Calendar({
-  savedSessions,
-  deleteSavedSession,
-}: CalendarProps) {
+function Calendar() {
+  const { savedSessions, deleteSavedSession } = useSessionsContext();
+
   const [showAll, setShowAll] = React.useState(false);
 
   const shortHistory = savedSessions
@@ -36,12 +34,14 @@ function Calendar({
     ({ date, focusAreas, difficulty }, index) => {
       return (
         <ListItem key={showAll + date + index}>
-          <DeleteHistory
-            title="Delete from history"
-            onClick={()=>deleteSavedSession(index)}
-          >
-            X
-          </DeleteHistory>
+          <Spacer>
+            <DeleteHistory
+              title="Delete from history"
+              onClick={() => deleteSavedSession(index)}
+            >
+              X
+            </DeleteHistory>
+          </Spacer>
           <p>
             {date} - {moment(date).fromNow()}
           </p>
@@ -79,6 +79,7 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  gap: 10px;
 `;
 
 const SectionTitle = styled.h2`
@@ -101,6 +102,10 @@ const ListItem = styled.li`
   border: var(--color-primary) 3px solid;
   padding: 10px;
   border-radius: 10px;
+`;
+
+const Spacer = styled.div`
+  height: 15px;
 `;
 
 const DeleteHistory = styled.button`

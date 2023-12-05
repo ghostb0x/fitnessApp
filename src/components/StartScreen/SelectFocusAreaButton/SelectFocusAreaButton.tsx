@@ -1,22 +1,23 @@
 import * as React from 'react';
-import Button from '../Button';
+import Button from '../../Button';
 import Image from 'next/image';
 import { focusAreaNames, focusAreaType } from '@/types/types';
 import styled from 'styled-components';
+import { useSessionsContext } from '@/components/useSessionsProvider';
+
 
 interface SelectedFocusAreasProps {
-  selectedAreas: focusAreaNames[];
-  setSelectedAreas: (focusAreas: focusAreaNames[]) => void;
   focusAreaName: focusAreaNames;
   imageSlug: string;
 }
 
 function SelectFocusAreaButton({
-  selectedAreas,
-  setSelectedAreas,
   focusAreaName,
   imageSlug,
 }: SelectedFocusAreasProps) {
+
+  const { selectedAreas, setSelectedAreas } = useSessionsContext()
+
   const [clicked, setClicked] = React.useState(false);
 
   return (
@@ -46,7 +47,11 @@ function SelectFocusAreaButton({
           alt={`${focusAreaName} Muscle Image`}
           height={230}
           width={110}
-          priority={(focusAreaName === 'Abs' || focusAreaName === 'Chest') ? true : false}
+          priority={
+            focusAreaName === 'Abs' || focusAreaName === 'Chest'
+              ? true
+              : false
+          }
         />
       </ButtonContents>
     </RectangleButton>

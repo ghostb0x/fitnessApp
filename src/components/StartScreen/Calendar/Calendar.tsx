@@ -1,8 +1,9 @@
 'use client';
-import { sessionHistory } from '@/data/sessions';
+
 import React from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
+
+import { formatDistanceToNow, parseJSON } from 'date-fns'
 import Button from '../../Button';
 import { useSessionsContext } from '@/components/useSessionsProvider';
 
@@ -18,11 +19,11 @@ function Calendar() {
 
   const shortHistory = savedSessions
     .slice(0, 6)
-    .map(({ date, focusAreas, difficulty }, index) => {
+    .map(({ startTime, focusAreas, difficulty }, index) => {
       return (
-        <ListItem key={showAll + date + index}>
+        <ListItem key={showAll.toString() + startTime.toString() + index}>
           <p>
-            {date} - {moment(date).fromNow()}
+            {formatDistanceToNow(parseJSON(startTime))} ago
           </p>
           <p>Focus areas: {focusAreas.join(' + ')} </p>
           <p>Difficulty: {difficulty}</p>
@@ -31,9 +32,9 @@ function Calendar() {
     });
 
   const fullHistory = savedSessions.map(
-    ({ date, focusAreas, difficulty }, index) => {
+    ({ startTime, focusAreas, difficulty }, index) => {
       return (
-        <ListItem key={showAll + date + index}>
+        <ListItem key={showAll.toString() + startTime.toString() + index}>
           <Spacer>
             <DeleteHistory
               title="Delete from history"
@@ -43,7 +44,7 @@ function Calendar() {
             </DeleteHistory>
           </Spacer>
           <p>
-            {date} - {moment(date).fromNow()}
+            {formatDistanceToNow(parseJSON(startTime))}
           </p>
           <p>Focus areas: {focusAreas.join(' + ')} </p>
           <p>Difficulty: {difficulty}</p>

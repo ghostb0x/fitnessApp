@@ -1,9 +1,8 @@
 
 export interface session {
-    date: string;
-    startTime: string;    
-    endTime: string;
-    timeSpent: string;
+    startTime: Date;    
+    endTime: Date;
+    timeSpent: Date;
     focusAreas: focusAreaNames[];
     hiitDuration: number;
     heavyMoves: heavyMove[];

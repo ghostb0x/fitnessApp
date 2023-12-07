@@ -1,20 +1,21 @@
 'use client';
 import React from 'react';
 import moment from 'moment';
+import { formatDistance, parseJSON } from 'date-fns'
 import { useSessionsContext } from '@/components/useSessionsProvider';
 import { session } from '@/types/types';
+import Timer from '@/components/Timer';
 
 export default function Workout() {
   const { selectedAreas, startSession, currentSession } = useSessionsContext();
 
-  let today = moment().format('l');
-  let startTime = moment().format('LT');
+//   convert to date-fns
+  let startTime = new Date()
 
   const newSession: session = {
-    date: today,
     startTime: startTime,
-    endTime: '',
-    timeSpent: '',
+    endTime: startTime,
+    timeSpent: startTime,
     focusAreas: selectedAreas,
     hiitDuration: 0,
     heavyMoves: [],
@@ -34,6 +35,7 @@ export default function Workout() {
     <div>
       <p>Im a workout page!</p>
       <p>{JSON.stringify(currentSession)}</p>
+      <Timer startTime={startTime}/>
     </div>
   );
 }

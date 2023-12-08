@@ -8,12 +8,36 @@ import Timer from '@/components/WorkoutScreen/Timer';
 import LogSetButtonBar from '@/components/WorkoutScreen/LogSetButtonBar';
 import HIITLogForm from '@/components/WorkoutScreen/HIITLogForm';
 import ExerciseLogForm from '@/components/WorkoutScreen/ExerciseLogForm';
+import { focusAreas } from '@/data/focusAreas';
 
 export default function Workout() {
   const { selectedAreas, startSession, currentSession } =
     useSessionsContext();
 
   let startTime = new Date();
+  let currentExercises: string[] = [];
+
+  selectedAreas.forEach((area) => {
+    // loop through focusAreas data set
+    // where focusAreas.name === area
+    // get exercises for focusArea and add to
+    // currentExercises
+    focusAreas.forEach((focusArea) => {
+      if (focusArea.name === area) {
+        currentExercises = [
+          ...currentExercises,
+          ...focusArea.exercises,
+        ];
+      }
+    });
+  });
+
+  //   {
+  //     id: 1,
+  //     name: 'Abs',
+  //     imageSlug: '/assets/images/core-muscles.png',
+  //     exercises: [],
+  //   },
 
   const newSession: session = {
     startTime: startTime,
@@ -21,7 +45,7 @@ export default function Workout() {
     timeSpent: startTime,
     focusAreas: selectedAreas,
     hiitDuration: 0,
-    heavyMoves: [],
+    exercises: [],
     difficulty: 0,
   };
 
@@ -39,7 +63,7 @@ export default function Workout() {
       <p>Im a workout page!</p>
       <p>{JSON.stringify(currentSession)}</p>
       <Timer startTime={startTime} />
-      <LogSetButtonBar />
+      <LogSetButtonBar currentExercises={currentExercises}/>
       <HIITLogForm />
       <ExerciseLogForm />
     </div>

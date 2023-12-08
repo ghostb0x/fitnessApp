@@ -9,7 +9,7 @@ export const sessionHistory: session[] = [
     focusAreas: ['Lower Back', 'Upper Back + Biceps'],
     hiitDuration: 20,
     difficulty: 5,
-    heavyMoves: [
+    exercises: [
       {
         name: 'Pull-ups',
         totalReps: 47,
@@ -42,6 +42,6 @@ export const sessionHistory: session[] = [
     focusAreas: ['Legs'],
     hiitDuration: 30,
     difficulty: 7,
-    heavyMoves: [],
+    exercises: [],
   },
 ];

@@ -5,7 +5,7 @@ export interface session {
     timeSpent: Date;
     focusAreas: focusAreaNames[];
     hiitDuration: number;
-    heavyMoves: heavyMove[];
+    exercises: exercise[];
     difficulty: number;
 }
 
@@ -21,11 +21,11 @@ export interface focusAreaType {
     id: number;
     name: focusAreaNames;
     imageSlug: string;
-    heavyMoves: string[];
+    exercises: string[];
 }
 
 
-export interface heavyMove {
+export interface exercise {
     name: string;
     totalReps: number;
     sets: {id: number, reps: number}[]

@@ -2,7 +2,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import GlobalStyles from '@/styles/GlobalStyles';
 import StyledComponentsRegistry from '@/lib/registry';
-import { SessionsProvider } from '@/components/useSessionsProvider';
+import { SessionsProvider } from '@/components/_Shared/useSessionsProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 

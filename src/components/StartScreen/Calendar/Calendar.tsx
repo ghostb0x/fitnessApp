@@ -3,9 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { formatDistanceToNow, parseJSON } from 'date-fns'
-import Button from '../../Button';
-import { useSessionsContext } from '@/components/useSessionsProvider';
+import { formatDistanceToNow, parseJSON } from 'date-fns';
+import Button from '../../_Shared/Button';
+import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 
 // interface CalendarProps {
 //   savedSessions: session[];
@@ -21,10 +21,10 @@ function Calendar() {
     .slice(0, 6)
     .map(({ startTime, focusAreas, difficulty }, index) => {
       return (
-        <ListItem key={showAll.toString() + startTime.toString() + index}>
-          <p>
-            {formatDistanceToNow(parseJSON(startTime))} ago
-          </p>
+        <ListItem
+          key={showAll.toString() + startTime.toString() + index}
+        >
+          <p>{formatDistanceToNow(parseJSON(startTime))} ago</p>
           <p>Focus areas: {focusAreas.join(' + ')} </p>
           <p>Difficulty: {difficulty}</p>
         </ListItem>
@@ -34,7 +34,9 @@ function Calendar() {
   const fullHistory = savedSessions.map(
     ({ startTime, focusAreas, difficulty }, index) => {
       return (
-        <ListItem key={showAll.toString() + startTime.toString() + index}>
+        <ListItem
+          key={showAll.toString() + startTime.toString() + index}
+        >
           <Spacer>
             <DeleteHistory
               title="Delete from history"
@@ -43,9 +45,7 @@ function Calendar() {
               X
             </DeleteHistory>
           </Spacer>
-          <p>
-            {formatDistanceToNow(parseJSON(startTime))}
-          </p>
+          <p>{formatDistanceToNow(parseJSON(startTime))}</p>
           <p>Focus areas: {focusAreas.join(' + ')} </p>
           <p>Difficulty: {difficulty}</p>
         </ListItem>

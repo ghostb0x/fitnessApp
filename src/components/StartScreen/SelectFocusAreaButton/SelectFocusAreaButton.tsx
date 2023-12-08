@@ -1,10 +1,9 @@
 import * as React from 'react';
-import Button from '../../Button';
+import Button from '../../_Shared/Button';
 import Image from 'next/image';
 import { focusAreaNames, focusAreaType } from '@/types/types';
 import styled from 'styled-components';
-import { useSessionsContext } from '@/components/useSessionsProvider';
-
+import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 
 interface SelectedFocusAreasProps {
   focusAreaName: focusAreaNames;
@@ -15,8 +14,7 @@ function SelectFocusAreaButton({
   focusAreaName,
   imageSlug,
 }: SelectedFocusAreasProps) {
-
-  const { selectedAreas, setSelectedAreas } = useSessionsContext()
+  const { selectedAreas, setSelectedAreas } = useSessionsContext();
 
   const [clicked, setClicked] = React.useState(false);
 

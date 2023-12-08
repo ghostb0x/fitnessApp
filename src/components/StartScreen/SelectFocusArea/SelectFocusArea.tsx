@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { focusAreaType } from '@/types/types';
 import SelectFocusAreaButton from '../SelectFocusAreaButton';
-import { useSessionsContext } from '@/components/useSessionsProvider';
+import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 
 function SelectFocusArea() {
   const { selectedAreas } = useSessionsContext();

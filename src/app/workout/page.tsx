@@ -1,16 +1,18 @@
 'use client';
 import React from 'react';
 import moment from 'moment';
-import { formatDistance, parseJSON } from 'date-fns'
-import { useSessionsContext } from '@/components/useSessionsProvider';
+import { formatDistance, parseJSON } from 'date-fns';
+import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import { session } from '@/types/types';
-import Timer from '@/components/Timer';
+import Timer from '@/components/WorkoutScreen/Timer';
+import LogSetButtonBar from '@/components/WorkoutScreen/LogSetButtonBar';
+import HIITLogForm from '@/components/WorkoutScreen/HIITLogForm';
 
 export default function Workout() {
-  const { selectedAreas, startSession, currentSession } = useSessionsContext();
+  const { selectedAreas, startSession, currentSession } =
+    useSessionsContext();
 
-//   convert to date-fns
-  let startTime = new Date()
+  let startTime = new Date();
 
   const newSession: session = {
     startTime: startTime,
@@ -35,7 +37,9 @@ export default function Workout() {
     <div>
       <p>Im a workout page!</p>
       <p>{JSON.stringify(currentSession)}</p>
-      <Timer startTime={startTime}/>
+      <Timer startTime={startTime} />
+      <LogSetButtonBar />
+      <HIITLogForm />
     </div>
   );
 }

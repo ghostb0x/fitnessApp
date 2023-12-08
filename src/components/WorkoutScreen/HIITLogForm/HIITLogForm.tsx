@@ -8,22 +8,34 @@ interface Inputs {
   weight: number;
 }
 
+const Routines: Record<string, number> = {
+  'Back Day': 0,
+  'Leg Day': 0,
+  'Cardio Abs': 0,
+  'Six Pack Abs': 0,
+};
+
 function HIITLogForm() {
-
-
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
     <div>
       HIIT Session Inputs
-      <form onSubmit={handleSubmit(onSubmit)}> 
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="routine-name">Routine Name</label>
         <select
           id="routine-name"
           {...register('routineName')}
         >
-          {/* map select options */}
+          {Object.keys(Routines).map((routine) => (
+            <option
+              key={routine}
+              value={routine}
+            >
+              {routine}
+            </option>
+          ))}
         </select>
         <label htmlFor="time">Time Spent</label>
         <input

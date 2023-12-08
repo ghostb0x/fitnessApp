@@ -1,10 +1,10 @@
 export interface session {
   startTime: Date;
   endTime: Date;
-  timeSpent: Date;
+  secondsElapsed: number;
   focusAreas: focusAreaNames[];
   hiitDuration: number;
-  exercises: exercise[];
+  exercises: Record<string, exercise>;
   difficulty: number;
 }
 

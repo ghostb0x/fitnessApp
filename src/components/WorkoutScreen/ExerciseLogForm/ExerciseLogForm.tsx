@@ -13,7 +13,7 @@ interface FormInputs {
 }
 
 function ExerciseLogForm({ selectedExercise }: ComponentProps) {
-  const { selectedAreas, currentSession } = useSessionsContext();
+  const { updateExercises, selectedAreas, currentSession } = useSessionsContext();
 
   const { register, handleSubmit } = useForm<FormInputs>({
     defaultValues: {
@@ -29,6 +29,14 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
     };
     console.log(newSet);
     // send to reducer
+    const payload = {
+      exerciseName: selectedExercise,
+      newSet: newSet,
+    }
+
+    console.log(payload)
+
+    updateExercises(payload)
 
   };
 

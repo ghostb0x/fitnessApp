@@ -66,7 +66,7 @@ function LogSetButtonBar() {
 
 
       {inputExercise ? (
-        <ExerciseLogForm exercise={inputExercise} />
+        <ExerciseLogForm selectedExercise={inputExercise} />
       ) : null}
     </div>
   );

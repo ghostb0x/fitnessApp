@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
-import { session, focusAreaNames } from '@/types/types';
+import { session, focusAreaNames, set } from '@/types/types';
+import { create } from 'zustand';
 
 type SessionsProviderValueType = ReturnType<
   typeof useSessionsManager
@@ -10,27 +11,92 @@ const SessionsContext =
   React.createContext<SessionsProviderValueType | null>(null);
 
 function useSessionsManager() {
-  const [savedSessions, setSavedSessions] = React.useState<session[]>(
-    []
-  );
+  // selectedAreas is slightly unrelated to sessions - could be its own context
+  // but it's small enough and they are used at different points in the app flow
+  // so I think its okay to bundle
+  const [selectedAreas, setSelectedAreas] = React.useState<
+    focusAreaNames[]
+  >([]);
 
-  //initialize saved sessions from local storage - leave as empty array if none found
+  // ZUSTAND //
+  // Create your store, which includes both state shape (session)
+  //and (optionally) actions
+  const useSessionStore = create<session>((set, get) => ({
+    startTime: new Date(),
+    endTime: new Date(),
+    secondsElapsed: 0,
+    focusAreas: selectedAreas,
+    hiitDuration: 0,
+    exercises: {},
+    difficulty: 0,
+  }));
+
+  //ensure the latest focusAreas are used, if they were to change
   React.useEffect(() => {
-    const stored = window.localStorage.getItem('saved-sessions');
-    if (stored) {
-      setSavedSessions(JSON.parse(stored));
+    useSessionStore.setState(() => ({ focusAreas: selectedAreas }));
+  }, [selectedAreas, useSessionStore]);
+
+  // Zustand Actions
+
+  function updateStartTime(startTime: Date) {
+    useSessionStore.setState(() => ({ startTime: startTime }));
+  }
+
+  function updateEndTime(endTime: Date) {
+    useSessionStore.setState(() => ({ endTime: endTime }));
+  }
+
+  function updateSecondsElapsed(secondsElapsed: number) {
+    useSessionStore.setState(() => ({
+      secondsElapsed: secondsElapsed,
+    }));
+  }
+
+  function updateHiitDuration(hiitDuration: number) {
+    useSessionStore.setState(() => ({ hiitDuration: hiitDuration }));
+  }
+
+  function updateDifficulty(difficulty: number) {
+    useSessionStore.setState(() => ({ difficulty: difficulty }));
+  }
+
+  // const payload = {
+  //   exerciseName: selectedExercise,
+  //   newSet: newSet,
+  // }
+
+  function updateExercises(payload: {
+    exerciseName: string;
+    newSet: set;
+  }) {
+    const { exercises } = useSessionStore.getState();
+    // if key doesn't yet exist, create exercise obj
+    if (exercises?.[payload.exerciseName] === undefined) {
+      console.log('key not found');
+      exercises[payload.exerciseName] = {
+        name: payload.exerciseName,
+        totalReps: 0,
+        sets: [],
+      };
     }
-  }, []);
+    // push new set
+    console.log('push key');
+    exercises?.[payload.exerciseName].sets.push(payload.newSet);
+
+    console.log(useSessionStore.getState());
+
+    // // sum total of reps
+    // currentExercises?.[payload.exerciseName].sets.reduce(
+
+    // set new state
+
+    useSessionStore.setState(() => ({ exercises: exercises }));
+  }
+
+  // end Zustand Actions
 
   const [currentSession, setCurrentSession] =
     React.useState<session | null>(null);
-
-  function deleteSavedSession(deleteIndex: number) {
-    const filtered = savedSessions.filter(
-      (_, index) => index !== deleteIndex
-    );
-    setSavedSessions(filtered);
-  }
 
   function startSession(sesh: session) {
     setCurrentSession(sesh);
@@ -43,14 +109,29 @@ function useSessionsManager() {
     // add change screen to show current workout interface
   }
 
-  // selectedAreas is slightly unrelated to sessions - could be its own context 
-  // but it's small enough and they are used at different points in the app flow 
-  // so I think its okay to bundle
-  const [selectedAreas, setSelectedAreas] = React.useState<
-    focusAreaNames[]
-  >([]);
+  const [savedSessions, setSavedSessions] = React.useState<session[]>(
+    []
+  );
+
+  //load saved sessions from local storage - leave as empty array if none found
+  React.useEffect(() => {
+    const stored = window.localStorage.getItem('saved-sessions');
+    if (stored) {
+      setSavedSessions(JSON.parse(stored));
+    }
+  }, []);
+
+  function deleteSavedSession(deleteIndex: number) {
+    const filtered = savedSessions.filter(
+      (_, index) => index !== deleteIndex
+    );
+    setSavedSessions(filtered);
+  }
 
   return {
+    useSessionStore,
+    updateStartTime,
+    updateExercises,
     savedSessions,
     setSavedSessions,
     currentSession,
@@ -58,7 +139,7 @@ function useSessionsManager() {
     deleteSavedSession,
     startSession,
     selectedAreas,
-    setSelectedAreas
+    setSelectedAreas,
   };
 }
 

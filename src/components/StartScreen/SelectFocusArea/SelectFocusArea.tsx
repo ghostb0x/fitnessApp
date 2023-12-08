@@ -13,7 +13,7 @@ function SelectFocusArea() {
     <SectionWrapper>
       <SectionTitle>Select Your Focus Areas</SectionTitle>
       <ButtonBlock>
-        {focusAreas.map(({ id, name, imageSlug }: focusAreaType) => {
+        {Object.values(focusAreas).map(({ id, name, imageSlug }: focusAreaType) => {
           return (
             <SelectFocusAreaButton
               key={id}

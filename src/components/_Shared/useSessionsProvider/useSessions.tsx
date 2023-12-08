@@ -10,7 +10,6 @@ const SessionsContext =
   React.createContext<SessionsProviderValueType | null>(null);
 
 function useSessionsManager() {
-  // need to move these into context - too many props on these components
   const [savedSessions, setSavedSessions] = React.useState<session[]>(
     []
   );

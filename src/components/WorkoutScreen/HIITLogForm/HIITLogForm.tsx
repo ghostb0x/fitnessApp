@@ -16,8 +16,24 @@ const Routines: Record<string, number> = {
 };
 
 function HIITLogForm() {
-  const { register, handleSubmit } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const { register, handleSubmit } = useForm<Inputs>({
+    defaultValues: {
+      routineName: 'Back Day',
+      time: 0,
+      cardio: false,
+      weight: 0,
+    },
+  });
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const newHIIT = {
+      routineName: data.routineName,
+      time: data.time,
+      cardio: data.cardio,
+      weight: data.weight
+    }
+
+    // send to reducer
+  };
 
   return (
     <div>

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
+import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
+import { exercise, set } from '@/types/types';
 
 interface ComponentProps {
-  exercise: string;
+  selectedExercise: string;
 }
 
 interface FormInputs {
@@ -11,14 +12,30 @@ interface FormInputs {
   reps: number;
 }
 
+function ExerciseLogForm({ selectedExercise }: ComponentProps) {
+  const { selectedAreas, currentSession } = useSessionsContext();
 
-function ExerciseLogForm({exercise}: ComponentProps) {
-  const { register, handleSubmit } = useForm<FormInputs>();
-  const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
+  const { register, handleSubmit } = useForm<FormInputs>({
+    defaultValues: {
+      weight: 0,
+      reps: 0,
+    },
+  });
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    const newSet: set = {
+      id: crypto.randomUUID(),
+      reps: data.reps,
+      weight: data.weight,
+    };
+    console.log(newSet);
+    // send to reducer
+
+  };
+
 
   return (
     <div>
-      Log set: {exercise} #x 
+      Log set: {selectedExercise} #x
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="weight">Weight Used</label>
         <input

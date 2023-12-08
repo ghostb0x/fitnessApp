@@ -7,6 +7,7 @@ import { session } from '@/types/types';
 import Timer from '@/components/WorkoutScreen/Timer';
 import LogSetButtonBar from '@/components/WorkoutScreen/LogSetButtonBar';
 import HIITLogForm from '@/components/WorkoutScreen/HIITLogForm';
+import ExerciseLogForm from '@/components/WorkoutScreen/ExerciseLogForm';
 
 export default function Workout() {
   const { selectedAreas, startSession, currentSession } =
@@ -40,6 +41,7 @@ export default function Workout() {
       <Timer startTime={startTime} />
       <LogSetButtonBar />
       <HIITLogForm />
+      <ExerciseLogForm />
     </div>
   );
 }

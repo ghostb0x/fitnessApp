@@ -43,14 +43,14 @@ function HIITLogForm() {
           type="number"
           {...register('time')}
         />
-        <label>Cardio</label>
+        <label htmlFor="cardio">Cardio</label>
         <input
           id="cardio"
           type="checkbox"
           {...register('cardio')}
         />
 
-        <label>Weight Used</label>
+        <label htmlFor="weight">Weight Used</label>
         <input
           id="weight"
           type="number"

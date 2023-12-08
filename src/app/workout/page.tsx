@@ -40,8 +40,8 @@ export default function Workout() {
       <p>{JSON.stringify(currentSession)}</p>
       <Timer startTime={startTime} />
       <LogSetButtonBar />
-      <HIITLogForm />
-      <ExerciseLogForm />
+      
+      
     </div>
   );
 }

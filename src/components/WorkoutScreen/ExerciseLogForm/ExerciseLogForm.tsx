@@ -1,18 +1,24 @@
 import * as React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-interface Inputs {
+
+interface ComponentProps {
+  exercise: string;
+}
+
+interface FormInputs {
   weight: number;
   reps: number;
 }
 
-function ExerciseLogForm() {
-  const { register, handleSubmit } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+function ExerciseLogForm({exercise}: ComponentProps) {
+  const { register, handleSubmit } = useForm<FormInputs>();
+  const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data);
 
   return (
     <div>
-      Log set: [input here] #x 
+      Log set: {exercise} #x 
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="weight">Weight Used</label>
         <input

@@ -13,15 +13,21 @@ interface FormInputs {
 }
 
 function ExerciseLogForm({ selectedExercise }: ComponentProps) {
-  const { updateExercises, selectedAreas, currentSession } =
-    useSessionsContext();
+  const { updateExercises } = useSessionsContext();
 
-  const { register, handleSubmit } = useForm<FormInputs>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState,
+    formState: { isSubmitSuccessful },
+  } = useForm<FormInputs>({
     defaultValues: {
       weight: 0,
       reps: 0,
     },
   });
+
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     const newSet: set = {
       id: crypto.randomUUID(),
@@ -37,6 +43,15 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
 
     updateExercises(payload);
   };
+
+  React.useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({
+        weight: 0,
+        reps: 0,
+      });
+    }
+  }, [formState, reset]);
 
   return (
     <div>

@@ -79,17 +79,12 @@ function useSessionsManager() {
         sets: [],
       };
     }
-    // push new set
-    console.log('push key');
+    // push new set and update total reps
     exercises?.[payload.exerciseName].sets.push(payload.newSet);
+    exercises[payload.exerciseName].totalReps += payload.newSet.reps;
 
     console.log(useSessionStore.getState());
-
-    // // sum total of reps
-    // currentExercises?.[payload.exerciseName].sets.reduce(
-
     // set new state
-
     useSessionStore.setState(() => ({ exercises: exercises }));
   }
 

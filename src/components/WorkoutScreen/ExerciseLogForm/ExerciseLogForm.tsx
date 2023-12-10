@@ -13,7 +13,8 @@ interface FormInputs {
 }
 
 function ExerciseLogForm({ selectedExercise }: ComponentProps) {
-  const { updateExercises, selectedAreas, currentSession } = useSessionsContext();
+  const { updateExercises, selectedAreas, currentSession } =
+    useSessionsContext();
 
   const { register, handleSubmit } = useForm<FormInputs>({
     defaultValues: {
@@ -24,22 +25,18 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     const newSet: set = {
       id: crypto.randomUUID(),
-      reps: data.reps,
-      weight: data.weight,
+      reps: Number(data.reps),
+      weight: Number(data.weight),
     };
-    console.log(newSet);
+
     // send to reducer
     const payload = {
       exerciseName: selectedExercise,
       newSet: newSet,
-    }
+    };
 
-    console.log(payload)
-
-    updateExercises(payload)
-
+    updateExercises(payload);
   };
-
 
   return (
     <div>

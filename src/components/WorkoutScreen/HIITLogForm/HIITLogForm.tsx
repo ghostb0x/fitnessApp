@@ -1,3 +1,4 @@
+import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import * as React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
@@ -16,7 +17,15 @@ const Routines: Record<string, number> = {
 };
 
 function HIITLogForm() {
-  const { register, handleSubmit } = useForm<Inputs>({
+  const { updateHiitSession } = useSessionsContext();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState,
+    formState: { isSubmitSuccessful },
+  } = useForm<Inputs>({
     defaultValues: {
       routineName: 'Back Day',
       time: 0,
@@ -27,13 +36,25 @@ function HIITLogForm() {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const newHIIT = {
       routineName: data.routineName,
-      time: data.time,
+      time: Number(data.time),
       cardio: data.cardio,
-      weight: data.weight
-    }
+      weight: Number(data.weight),
+    };
 
     // send to reducer
+    updateHiitSession(newHIIT);
   };
+
+  React.useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({
+        routineName: 'Back Day',
+        time: 0,
+        cardio: false,
+        weight: 0,
+      });
+    }
+  }, [formState, reset]);
 
   return (
     <div>

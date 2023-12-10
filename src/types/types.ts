@@ -3,7 +3,7 @@ export interface session {
   endTime: Date;
   secondsElapsed: number;
   focusAreas: focusAreaNames[];
-  hiitDuration: number;
+  hiitSession: HiitSession[];
   exercises: Record<string, exercise>;
   difficulty: number;
 }
@@ -32,4 +32,11 @@ export interface exercise {
   name: string;
   totalReps: number;
   sets: set[];
+}
+
+export interface HiitSession {
+    routineName: string;
+    time: number;
+    cardio: boolean;
+    weight: number;
 }

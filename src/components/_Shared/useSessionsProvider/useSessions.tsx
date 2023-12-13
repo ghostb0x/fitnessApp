@@ -76,22 +76,24 @@ function useSessionsManager() {
     newSet: set;
   }) {
     const { exercises } = useSessionStore.getState();
+
+    const newState = { ...exercises }
     // if key doesn't yet exist, create exercise obj
-    if (exercises?.[payload.exerciseName] === undefined) {
+    if (newState?.[payload.exerciseName] === undefined) {
       console.log('key not found');
-      exercises[payload.exerciseName] = {
+      newState[payload.exerciseName] = {
         name: payload.exerciseName,
         totalReps: 0,
         sets: [],
       };
     }
     // push new set and update total reps
-    exercises?.[payload.exerciseName].sets.push(payload.newSet);
-    exercises[payload.exerciseName].totalReps += payload.newSet.reps;
+    newState?.[payload.exerciseName].sets.push(payload.newSet);
+    newState[payload.exerciseName].totalReps += payload.newSet.reps;
 
     console.log(useSessionStore.getState());
     // set new state
-    useSessionStore.setState(() => ({ exercises: exercises }));
+    useSessionStore.setState(() => ({ exercises: newState }));
   }
 
   // end Zustand Actions

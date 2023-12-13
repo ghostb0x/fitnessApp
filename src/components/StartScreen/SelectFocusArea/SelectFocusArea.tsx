@@ -9,6 +9,7 @@ import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 function SelectFocusArea() {
   const { selectedAreas } = useSessionsContext();
 
+
   return (
     <SectionWrapper>
       <SectionTitle>Select Your Focus Areas</SectionTitle>

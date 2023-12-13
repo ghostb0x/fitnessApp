@@ -1,6 +1,11 @@
 'use client';
 import * as React from 'react';
-import { HiitSession, session, focusAreaNames, set } from '@/types/types';
+import {
+  HiitSession,
+  session,
+  focusAreaNames,
+  set,
+} from '@/types/types';
 import { create } from 'zustand';
 
 type SessionsProviderValueType = ReturnType<
@@ -26,7 +31,7 @@ function useSessionsManager() {
     endTime: new Date(),
     secondsElapsed: 0,
     focusAreas: selectedAreas,
-    hiitSession: [],
+    hiitSessions: [],
     exercises: {},
     difficulty: 0,
   }));
@@ -52,20 +57,19 @@ function useSessionsManager() {
     }));
   }
 
-  function updateHiitSession(newHiitSession: HiitSession) {
-    const { hiitSession } = useSessionStore.getState();
+  function updateHiitSessions(newHiitSession: HiitSession) {
+    const { hiitSessions } = useSessionStore.getState();
 
-    hiitSession.push(newHiitSession)
-    useSessionStore.setState(() => ({ hiitSession: hiitSession }));
+    const newState = [...hiitSessions];
+    newState.push(newHiitSession);
+    useSessionStore.setState(() => ({ hiitSessions: newState }));
 
     console.log(useSessionStore.getState());
-
   }
 
   function updateDifficulty(difficulty: number) {
     useSessionStore.setState(() => ({ difficulty: difficulty }));
   }
-
 
   function updateExercises(payload: {
     exerciseName: string;
@@ -129,7 +133,7 @@ function useSessionsManager() {
     useSessionStore,
     updateStartTime,
     updateExercises,
-    updateHiitSession,
+    updateHiitSessions,
     savedSessions,
     setSavedSessions,
     currentSession,

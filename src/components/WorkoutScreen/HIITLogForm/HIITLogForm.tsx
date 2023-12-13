@@ -17,7 +17,7 @@ const Routines: Record<string, number> = {
 };
 
 function HIITLogForm() {
-  const { updateHiitSession } = useSessionsContext();
+  const { updateHiitSessions } = useSessionsContext();
 
   const {
     register,
@@ -42,7 +42,7 @@ function HIITLogForm() {
     };
 
     // send to reducer
-    updateHiitSession(newHIIT);
+    updateHiitSessions(newHIIT);
   };
 
   React.useEffect(() => {

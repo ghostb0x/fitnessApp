@@ -1,9 +1,10 @@
 'use client';
 import React from 'react';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
+import useSessionStore from 'zustand'
 import { session } from '@/types/types';
-import Timer from '@/components/WorkoutScreen/Timer';
 import LogSetButtonBar from '@/components/WorkoutScreen/LogSetButtonBar';
+import SessionDashboard from '@/components/WorkoutScreen/SessionDashboard';
 
 export default function Workout() {
   const {
@@ -39,7 +40,7 @@ export default function Workout() {
     <div>
       <p>Im a workout page!</p>
       <p>{JSON.stringify(getCurrentSession)}</p>
-      <Timer startTime={startTime} />
+      <SessionDashboard />
       <LogSetButtonBar />
     </div>
   );

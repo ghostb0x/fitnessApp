@@ -32,7 +32,7 @@ function SessionDashboard() {
           <h3>{name}</h3>
           {sets.map((set, index) => (
             <p key={index}>
-              Set {index + 1}: {set.reps} reps at {set.weight}
+              Set {index + 1}: {set.reps} reps at {set.weight} lbs
             </p>
           ))}
           <p>Total = {totalReps}</p>

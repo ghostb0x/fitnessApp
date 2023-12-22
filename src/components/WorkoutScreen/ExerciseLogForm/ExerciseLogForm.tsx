@@ -1,7 +1,10 @@
 import * as React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { set } from '@/types/types';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
+import Form from '@/components/_Shared/Form';
+import InputLabel from '@/components/_Shared/InputLabel';
+import FormInput from '@/components/_Shared/FormInput';
 
 interface ComponentProps {
   selectedExercise: string;
@@ -21,6 +24,7 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
     register,
     handleSubmit,
     reset,
+    control,
     formState,
     formState: { isSubmitSuccessful },
   } = useForm<FormInputs>({
@@ -31,18 +35,19 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
   });
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    console.log(data);
     const newSet: set = {
       id: crypto.randomUUID(),
       reps: Number(data.reps),
       weight: Number(data.weight),
     };
 
-    // send to reducer
     const payload = {
       exerciseName: selectedExercise,
       newSet: newSet,
     };
 
+    // send to Zustand store
     addNewExercise(payload);
   };
 
@@ -57,24 +62,39 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
 
   return (
     <div>
-      Log set: {selectedExercise} #x
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="weight">Weight Used</label>
-        <input
-          id="weight"
-          type="number"
-          {...register('weight')}
+      Log set: {selectedExercise}
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputLabel htmlFor="weight">Weight Used</InputLabel>
+        <Controller
+          name="weight"
+          control={control}
+          render={({ field }) => (
+            <FormInput
+              id="weight"
+              type="number"
+              {...field}
+            />
+          )}
         />
 
-        <label htmlFor="reps">Reps</label>
-        <input
-          id="reps"
-          type="number"
-          {...register('reps')}
+        <InputLabel htmlFor="reps">Reps</InputLabel>
+        <Controller
+          name="reps"
+          control={control}
+          render={({ field }) => (
+            <FormInput
+              id="reps"
+              type="number"
+              {...field}
+            />
+          )}
         />
 
-        <input type="submit" />
-      </form>
+        <FormInput
+          id="submit"
+          type="submit"
+        />
+      </Form>
     </div>
   );
 }

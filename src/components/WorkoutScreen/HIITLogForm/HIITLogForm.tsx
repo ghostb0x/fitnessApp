@@ -7,9 +7,9 @@ import FormInput from '@/components/_Shared/FormInput';
 
 interface Inputs {
   routineName: string;
-  time: number;
+  time: number | "";
   cardio: boolean;
-  weight: number;
+  weight: number | "";
 }
 
 const Routines: Record<string, number> = {
@@ -34,9 +34,9 @@ function HIITLogForm() {
   } = useForm<Inputs>({
     defaultValues: {
       routineName: 'Back Day',
-      time: 0,
+      time: "",
       cardio: false,
-      weight: 0,
+      weight: "",
     },
   });
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -55,9 +55,9 @@ function HIITLogForm() {
     if (formState.isSubmitSuccessful) {
       reset({
         routineName: 'Back Day',
-        time: 0,
+        time: "",
         cardio: false,
-        weight: 0,
+        weight: "",
       });
     }
   }, [formState, reset]);

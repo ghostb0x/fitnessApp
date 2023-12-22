@@ -11,8 +11,8 @@ interface ComponentProps {
 }
 
 interface FormInputs {
-  weight: number;
-  reps: number;
+  weight: number | "";
+  reps: number | "";
 }
 
 function ExerciseLogForm({ selectedExercise }: ComponentProps) {
@@ -29,8 +29,8 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
     formState: { isSubmitSuccessful },
   } = useForm<FormInputs>({
     defaultValues: {
-      weight: 0,
-      reps: 0,
+      weight: "",
+      reps: "",
     },
   });
 
@@ -54,8 +54,8 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
   React.useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset({
-        weight: 0,
-        reps: 0,
+        weight: "",
+        reps: "",
       });
     }
   }, [formState, reset]);

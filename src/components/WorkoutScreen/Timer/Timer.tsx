@@ -13,6 +13,10 @@ function Timer({startTime}: {startTime: Date}) {
     return () => {
       window.clearInterval(intervalId);
     };
+
+    // NOTE: Intentionally running effect only on component mount
+    // which occurs every 1 second by design
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function formatAsTime (seconds: number) {

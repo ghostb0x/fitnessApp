@@ -17,6 +17,9 @@ export default function Workout() {
   React.useEffect(() => {
     updateStartTime(startTime);
     console.log(currentSession);
+
+    // NOTE: Intentionally running effect only on component mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -15,6 +15,9 @@ export default function Workout() {
   React.useEffect(() => {
     console.log(currentSession);
     endSession(currentSession);
+
+    // NOTE: Intentionally running effect only on component mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let resetState = useBoundStore((state) => state.actions.reset);
@@ -25,13 +28,18 @@ export default function Workout() {
     resetState();
     router.push('/');
   }
-  
+
   return (
     <SectionWrapper>
       <SectionTitle>Well Done! You Did Great!</SectionTitle>
       <p>{JSON.stringify(currentSession)}</p>
       <SessionDashboard />
-      <Button onClick={resetApp} color="purple">Return Home</Button>
+      <Button
+        onClick={resetApp}
+        color="purple"
+      >
+        Return Home
+      </Button>
     </SectionWrapper>
   );
 }

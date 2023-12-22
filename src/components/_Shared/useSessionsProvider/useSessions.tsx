@@ -1,8 +1,6 @@
 'use client';
 import * as React from 'react';
-import {
-  session,
-} from '@/types/types';
+import { session } from '@/types/types';
 
 type SessionsProviderValueType = ReturnType<
   typeof useSessionsManager
@@ -12,22 +10,6 @@ const SessionsContext =
   React.createContext<SessionsProviderValueType | null>(null);
 
 function useSessionsManager() {
-  const [currentSession, setCurrentSession] =
-    React.useState<session | null>(null);
-
-  function startSession(sesh: session) {
-    setCurrentSession(sesh);
-    const newSaves = structuredClone(savedSessions);
-    newSaves.unshift(sesh);
-    const stringifiedSaves = JSON.stringify(newSaves);
-    window.localStorage.setItem('saved-sessions', stringifiedSaves);
-    setSavedSessions(newSaves);
-  }
-
-  const [savedSessions, setSavedSessions] = React.useState<session[]>(
-    []
-  );
-
   //load saved sessions from local storage - leave as empty array if none found
   React.useEffect(() => {
     const stored = window.localStorage.getItem('saved-sessions');
@@ -43,13 +25,24 @@ function useSessionsManager() {
     setSavedSessions(filtered);
   }
 
+  
+  function endSession(sesh: session) {
+    const newSaves = structuredClone(savedSessions);
+    newSaves.unshift(sesh);
+    const stringifiedSaves = JSON.stringify(newSaves);
+    window.localStorage.setItem('saved-sessions', stringifiedSaves);
+    setSavedSessions(newSaves);
+  }
+
+  const [savedSessions, setSavedSessions] = React.useState<session[]>(
+    []
+  );
+
   return {
     savedSessions,
     setSavedSessions,
-    currentSession,
-    setCurrentSession,
     deleteSavedSession,
-    startSession,
+    endSession
   };
 }
 

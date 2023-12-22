@@ -4,7 +4,7 @@ import LogSetButtonBar from '@/components/WorkoutScreen/LogSetButtonBar';
 import SessionDashboard from '@/components/WorkoutScreen/SessionDashboard';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
 import styled from 'styled-components';
-import EndWorkoutButton from '@/components/WorkoutScreen/EndWorkoutButton';
+
 
 export default function Workout() {
   let updateStartTime = useBoundStore(
@@ -19,15 +19,11 @@ export default function Workout() {
 
   return (
     <SectionWrapper>
-      <SectionTitle>Time to Work Hard!</SectionTitle>
-      <p>{JSON.stringify(getCurrentSession)}</p>
+      <SectionTitle>Well Done! You Did Great!</SectionTitle>
       <SessionDashboard />
-      <LogSetButtonBar />
-      <EndWorkoutButton />
     </SectionWrapper>
   );
 }
-
 
 const SectionWrapper = styled.section`
   border: 1px solid white;

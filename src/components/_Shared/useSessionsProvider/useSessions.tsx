@@ -14,11 +14,15 @@ function useSessionsManager() {
   // leave as empty array if none found
 
   const [savedSessions, setSavedSessions] = React.useState<session[]>(
-    () => {
-      const stored = window.localStorage.getItem('saved-sessions');
-      return stored ? JSON.parse(stored) : [];
-    }
+    []
   );
+
+  React.useEffect(() => {
+    const stored = window.localStorage.getItem('saved-sessions');
+    if (stored) {
+      setSavedSessions(JSON.parse(stored));
+    }
+  }, []);
 
   function deleteSavedSession(deleteIndex: number) {
     const filtered = savedSessions.filter(

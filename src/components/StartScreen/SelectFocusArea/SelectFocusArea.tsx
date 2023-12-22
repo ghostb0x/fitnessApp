@@ -4,10 +4,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { focusAreaType } from '@/types/types';
 import SelectFocusAreaButton from '../SelectFocusAreaButton';
-import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
+import { useBoundStore } from '@/hooks/state/useSessionStore';
+
 
 function SelectFocusArea() {
-  const { selectedAreas } = useSessionsContext();
+  let selectedAreas = useBoundStore((state) => state.variables.focusAreas);
 
 
   return (

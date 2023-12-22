@@ -2,9 +2,9 @@ import * as React from 'react';
 import Button from '@/components/_Shared/Button';
 import HIITLogForm from '../HIITLogForm';
 import ExerciseLogForm from '../ExerciseLogForm';
-import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import { focusAreas } from '@/data/focusAreas';
 import { focusAreaNames } from '@/types/types';
+import { useBoundStore } from '@/hooks/state/useSessionStore';
 
 
 // when button to Log Set is clicked
@@ -14,10 +14,12 @@ import { focusAreaNames } from '@/types/types';
 // 4 - and saves it to local storage
 
 function LogSetButtonBar() {
-  const { selectedAreas, currentSession } = useSessionsContext();
-
+ 
   const [clicked, setClicked] = React.useState('');
   const [inputExercise, setInputExercise] = React.useState('');
+
+  let selectedAreas = useBoundStore((state) => state.variables.focusAreas);
+
 
   let currentExercises =
     focusAreas[clicked as focusAreaNames]?.exercises;

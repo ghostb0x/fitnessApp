@@ -1,15 +1,15 @@
 import * as React from 'react';
 import Timer from '@/components/WorkoutScreen/Timer';
-import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
-import { create, useStore } from 'zustand';
+import { useBoundStore } from '@/hooks/state/useSessionStore';
 
 import styled from 'styled-components';
 
 function SessionDashboard() {
-  const { useSessionStore } = useSessionsContext();
-  // let { startTime, exercises } = useSessionStore.getState();
-  let startTime = useSessionStore((state) => state.startTime);
-  let hiitSessions = useSessionStore((state) => state.hiitSessions);
+  let startTime = useBoundStore((state) => state.variables.startTime);
+  let hiitSessions = useBoundStore(
+    (state) => state.variables.hiitSessions
+  );
+  let exercises = useBoundStore((state) => state.variables.exercises);
   //unpack HIIT and Exercises, and format for display
 
   const displayHiit = hiitSessions.length ? (
@@ -25,8 +25,6 @@ function SessionDashboard() {
       })}
     </div>
   ) : null;
-
-  const exercises = useSessionStore((state) => state.exercises);
 
   const displayExercises = Object.keys(exercises).map(
     (exercise, index) => {

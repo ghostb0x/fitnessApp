@@ -34,6 +34,11 @@ export interface exercise {
   sets: set[];
 }
 
+export interface newExercisePayload {
+  exerciseName: string;
+  newSet: set;
+}
+
 export interface HiitSession {
   routineName: string;
   time: number;

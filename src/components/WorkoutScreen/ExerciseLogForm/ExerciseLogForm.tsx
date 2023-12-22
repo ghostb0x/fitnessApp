@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
-import { exercise, set } from '@/types/types';
+import { set } from '@/types/types';
+import { useBoundStore } from '@/hooks/state/useSessionStore';
 
 interface ComponentProps {
   selectedExercise: string;
@@ -13,7 +13,9 @@ interface FormInputs {
 }
 
 function ExerciseLogForm({ selectedExercise }: ComponentProps) {
-  const { updateExercises } = useSessionsContext();
+  let addNewExercise = useBoundStore(
+    (state) => state.actions.addNewExercise
+  );
 
   const {
     register,
@@ -41,7 +43,7 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
       newSet: newSet,
     };
 
-    updateExercises(payload);
+    addNewExercise(payload);
   };
 
   React.useEffect(() => {

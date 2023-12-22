@@ -1,6 +1,6 @@
-import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import * as React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useBoundStore } from '@/hooks/state/useSessionStore';
 
 interface Inputs {
   routineName: string;
@@ -17,7 +17,9 @@ const Routines: Record<string, number> = {
 };
 
 function HIITLogForm() {
-  const { updateHiitSessions } = useSessionsContext();
+  let addNewHiitSession = useBoundStore(
+    (state) => state.actions.addNewHiitSession
+  );
 
   const {
     register,
@@ -42,7 +44,7 @@ function HIITLogForm() {
     };
 
     // send to reducer
-    updateHiitSessions(newHIIT);
+    addNewHiitSession(newHIIT);
   };
 
   React.useEffect(() => {

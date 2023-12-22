@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Button from '../../_Shared/Button';
 import Image from 'next/image';
-import { focusAreaNames, focusAreaType } from '@/types/types';
+import { focusAreaNames } from '@/types/types';
 import styled from 'styled-components';
-import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
+import { useBoundStore } from '@/hooks/state/useSessionStore';
+
 
 interface SelectedFocusAreasProps {
   focusAreaName: focusAreaNames;
@@ -14,7 +15,10 @@ function SelectFocusAreaButton({
   focusAreaName,
   imageSlug,
 }: SelectedFocusAreasProps) {
-  const { selectedAreas, setSelectedAreas } = useSessionsContext();
+  
+  
+  let selectedAreas = useBoundStore((state) => state.variables.focusAreas);
+  let setSelectedAreas =  useBoundStore((state) => state.actions.updateFocusAreas);
 
   const [clicked, setClicked] = React.useState(false);
 
@@ -31,9 +35,7 @@ function SelectFocusAreaButton({
           setClicked(false);
         } else {
           // if name not in list, clicking adds
-          const newFocusAreas = [...selectedAreas];
-          newFocusAreas.push(focusAreaName);
-          setSelectedAreas(newFocusAreas);
+          setSelectedAreas([...selectedAreas, focusAreaName]);
           setClicked(true);
         }
       }}

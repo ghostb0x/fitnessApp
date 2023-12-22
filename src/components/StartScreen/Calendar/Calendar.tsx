@@ -1,16 +1,9 @@
 'use client';
-
 import React from 'react';
 import styled from 'styled-components';
-
 import { formatDistanceToNow, parseJSON } from 'date-fns';
 import Button from '../../_Shared/Button';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
-
-// interface CalendarProps {
-//   savedSessions: session[];
-//   deleteSavedSession: (index: number) => void;
-// }
 
 function Calendar() {
   const { savedSessions, deleteSavedSession } = useSessionsContext();

@@ -31,7 +31,7 @@ function DifficultySurvey() {
   return (
     <SectionWrapper>
       <SectionTitle>How difficult was that?</SectionTitle>
-      {Buttons}
+      <SurveyWrapper>{Buttons}</SurveyWrapper>
     </SectionWrapper>
   );
 }
@@ -40,18 +40,34 @@ const SectionWrapper = styled.section`
   border: 1px solid white;
   padding: 30px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const SectionTitle = styled.h2`
   font-size: 25px;
+  text-align: center;
+
+`;
+
+const SurveyWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+
 `;
 
 const SurveyButton = styled.button`
   background-color: orangered;
   color: white;
-  width: 25px;
-  height: 25px;
-  font-size: 15px;
+  width: 60px;
+  height: 60px;
+  font-size: 35px;
+  text-align: center;
+  border-radius: 15px;
 `;
 
 export default DifficultySurvey;

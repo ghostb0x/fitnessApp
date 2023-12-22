@@ -38,7 +38,7 @@ function Calendar() {
               X
             </DeleteHistory>
           </Spacer>
-          <p>{formatDistanceToNow(parseJSON(startTime))}</p>
+          <p>{formatDistanceToNow(parseJSON(startTime))} ago</p>
           <p>Focus areas: {focusAreas.join(' + ')} </p>
           <p>Difficulty: {difficulty}</p>
         </ListItem>

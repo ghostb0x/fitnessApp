@@ -3,6 +3,7 @@ import React from 'react';
 import SessionDashboard from '@/components/WorkoutScreen/SessionDashboard';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
+import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import Button from '@/components/_Shared/Button';
 
@@ -16,12 +17,21 @@ export default function Workout() {
     endSession(currentSession);
   }, []);
 
+  let resetState = useBoundStore((state) => state.actions.reset);
+
+  const router = useRouter();
+
+  function resetApp() {
+    resetState();
+    router.push('/');
+  }
+  
   return (
     <SectionWrapper>
       <SectionTitle>Well Done! You Did Great!</SectionTitle>
       <p>{JSON.stringify(currentSession)}</p>
       <SessionDashboard />
-      <Button color="purple">Return Home</Button>
+      <Button onClick={resetApp} color="purple">Return Home</Button>
     </SectionWrapper>
   );
 }

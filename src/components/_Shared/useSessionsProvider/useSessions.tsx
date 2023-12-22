@@ -10,22 +10,25 @@ const SessionsContext =
   React.createContext<SessionsProviderValueType | null>(null);
 
 function useSessionsManager() {
-  //load saved sessions from local storage - leave as empty array if none found
-  React.useEffect(() => {
-    const stored = window.localStorage.getItem('saved-sessions');
-    if (stored) {
-      setSavedSessions(JSON.parse(stored));
+  //initialize saved sessions from local storage
+  // leave as empty array if none found
+
+  const [savedSessions, setSavedSessions] = React.useState<session[]>(
+    () => {
+      const stored = window.localStorage.getItem('saved-sessions');
+      return stored ? JSON.parse(stored) : [];
     }
-  }, []);
+  );
 
   function deleteSavedSession(deleteIndex: number) {
     const filtered = savedSessions.filter(
       (_, index) => index !== deleteIndex
     );
+    const stringifiedSaves = JSON.stringify(filtered);
+    window.localStorage.setItem('saved-sessions', stringifiedSaves);
     setSavedSessions(filtered);
   }
 
-  
   function endSession(sesh: session) {
     const newSaves = structuredClone(savedSessions);
     newSaves.unshift(sesh);
@@ -34,15 +37,11 @@ function useSessionsManager() {
     setSavedSessions(newSaves);
   }
 
-  const [savedSessions, setSavedSessions] = React.useState<session[]>(
-    []
-  );
-
   return {
     savedSessions,
     setSavedSessions,
     deleteSavedSession,
-    endSession
+    endSession,
   };
 }
 

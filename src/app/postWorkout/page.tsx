@@ -1,26 +1,27 @@
 'use client';
 import React from 'react';
-import LogSetButtonBar from '@/components/WorkoutScreen/LogSetButtonBar';
 import SessionDashboard from '@/components/WorkoutScreen/SessionDashboard';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
+import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import styled from 'styled-components';
-
+import Button from '@/components/_Shared/Button';
 
 export default function Workout() {
-  let updateStartTime = useBoundStore(
-    (state) => state.actions.updateStartTime
-  );
-  let getCurrentSession = useBoundStore((state) => state.variables);
+  const { endSession } = useSessionsContext();
+
+  let currentSession = useBoundStore((state) => state.variables);
 
   React.useEffect(() => {
-    updateStartTime(new Date());
-    console.log(getCurrentSession);
+    console.log(currentSession);
+    endSession(currentSession);
   }, []);
 
   return (
     <SectionWrapper>
       <SectionTitle>Well Done! You Did Great!</SectionTitle>
+      <p>{JSON.stringify(currentSession)}</p>
       <SessionDashboard />
+      <Button color="purple">Return Home</Button>
     </SectionWrapper>
   );
 }
@@ -30,7 +31,6 @@ const SectionWrapper = styled.section`
   padding: 30px;
   border-radius: 10px;
 `;
-
 
 const SectionTitle = styled.h2`
   font-size: 25px;

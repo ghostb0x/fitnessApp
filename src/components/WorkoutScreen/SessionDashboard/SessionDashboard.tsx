@@ -1,11 +1,8 @@
 import * as React from 'react';
-import Timer from '@/components/WorkoutScreen/Timer';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
-
 import styled from 'styled-components';
 
 function SessionDashboard() {
-  let startTime = useBoundStore((state) => state.variables.startTime);
   let hiitSessions = useBoundStore(
     (state) => state.variables.hiitSessions
   );
@@ -46,7 +43,6 @@ function SessionDashboard() {
 
   return (
     <Wrapper>
-      <Timer startTime={startTime} />
       <Stats>
         {displayHiit}
         {displayExercises}

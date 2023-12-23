@@ -111,7 +111,6 @@ const useSessionStore = createWithEqualityFn<ZustandType>(
 
           // if key doesn't yet exist, create exercise obj
           if (newState?.[payload.exerciseName] === undefined) {
-            console.log('key not found');
             newState[payload.exerciseName] = {
               name: payload.exerciseName,
               totalReps: 0,

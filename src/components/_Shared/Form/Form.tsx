@@ -12,8 +12,8 @@ function Form({ children, onSubmit, ...delegated }: FormProps) {
 }
 
 const StyledForm = styled.form`
-  width: 75%;
-  padding: 50px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export default Form;

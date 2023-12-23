@@ -4,12 +4,13 @@ import { useBoundStore } from '@/hooks/state/useSessionStore';
 import Form from '@/components/_Shared/Form';
 import InputLabel from '@/components/_Shared/InputLabel';
 import FormInput from '@/components/_Shared/FormInput';
+import styled from 'styled-components';
 
 interface Inputs {
   routineName: string;
-  time: number | "";
+  time: number | '';
   cardio: boolean;
-  weight: number | "";
+  weight: number | '';
 }
 
 const Routines: Record<string, number> = {
@@ -34,9 +35,9 @@ function HIITLogForm() {
   } = useForm<Inputs>({
     defaultValues: {
       routineName: 'Back Day',
-      time: "",
+      time: '',
       cardio: false,
-      weight: "",
+      weight: '',
     },
   });
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -55,16 +56,16 @@ function HIITLogForm() {
     if (formState.isSubmitSuccessful) {
       reset({
         routineName: 'Back Day',
-        time: "",
+        time: '',
         cardio: false,
-        weight: "",
+        weight: '',
       });
     }
   }, [formState, reset]);
 
   return (
-    <div>
-      HIIT Session Inputs
+    <Wrapper>
+      <SectionTitle>Log HIIT Session</SectionTitle>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputLabel htmlFor="routine-name">Routine Name</InputLabel>
         <Controller
@@ -132,8 +133,21 @@ function HIITLogForm() {
           type="submit"
         />
       </Form>
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  margin-top: 15px;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 15px;
+`;
+
+const SectionTitle = styled.h3`
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 15px;
+`;
 
 export default HIITLogForm;

@@ -7,8 +7,10 @@ interface InputProps {
   type: string;
   children?: React.ReactNode;
 }
-
-function FormInput({ children, id, type, ...delegated }: InputProps) {
+const FormInput = React.forwardRef<
+  HTMLInputElement | HTMLSelectElement, // Union type for ref
+  InputProps>(
+({ children, id, type, ...delegated }, ref) => {
 
   let component;
 
@@ -30,7 +32,7 @@ function FormInput({ children, id, type, ...delegated }: InputProps) {
     />
       break;
     case "checkbox":
-      component = <StyledInput id={id} type="checkbox" {...delegated}/>
+      component = <StyledCheckbox id={id} type="checkbox" {...delegated}/>
       break;
     case "select":
       component = <StyledSelect id={id} {...delegated}>{children}</StyledSelect>
@@ -38,24 +40,33 @@ function FormInput({ children, id, type, ...delegated }: InputProps) {
       break;
   }
 
-
-
   return component
 
-}
+})
+
+FormInput.displayName = 'FormInput';
 
 const StyledInput = styled.input`
+  margin-bottom: 15px;
   width: 100%;
   height: 30px;
+  font-size: 25px;
+
+`;
+
+const StyledCheckbox = styled.input`
+  margin-bottom: 15px;
+  height: 30px;
+  width: 30px;
   font-size: 25px;
   margin-right: auto;
 `;
 
 const StyledSelect = styled.select`
+  margin-bottom: 15px;
   width: 100%;
   height: 30px;
   font-size: 25px;
-  margin-right: auto;
   text-align: center;
   font-family: var(--font-roboto);
   font-size: 1.3rem;

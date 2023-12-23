@@ -16,7 +16,6 @@ export default function Workout() {
 
   React.useEffect(() => {
     updateStartTime(startTime);
-    console.log(currentSession);
 
     // NOTE: Intentionally running effect only on component mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,7 +24,7 @@ export default function Workout() {
   return (
     <SectionWrapper>
       <SectionTitle>Time to Work Hard!</SectionTitle>
-      <p>{JSON.stringify(currentSession)}</p>
+
       <Timer startTime={startTime} />
       <SessionDashboard />
       <LogSetButtonBar />
@@ -35,11 +34,13 @@ export default function Workout() {
 }
 
 const SectionWrapper = styled.section`
-  border: 1px solid white;
   padding: 30px;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 `;
 
 const SectionTitle = styled.h2`
   font-size: 25px;
+  text-align: center;
 `;

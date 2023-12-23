@@ -5,7 +5,7 @@ import ExerciseLogForm from '../ExerciseLogForm';
 import { focusAreas } from '@/data/focusAreas';
 import { focusAreaNames } from '@/types/types';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
-
+import styled from 'styled-components';
 
 // when button to Log Set is clicked
 // 1 - creates an exercise shaped object
@@ -14,19 +14,19 @@ import { useBoundStore } from '@/hooks/state/useSessionStore';
 // 4 - and saves it to local storage
 
 function LogSetButtonBar() {
- 
   const [clicked, setClicked] = React.useState('');
   const [inputExercise, setInputExercise] = React.useState('');
 
-  let selectedAreas = useBoundStore((state) => state.variables.focusAreas);
-
+  let selectedAreas = useBoundStore(
+    (state) => state.variables.focusAreas
+  );
 
   let currentExercises =
     focusAreas[clicked as focusAreaNames]?.exercises;
 
   return (
-    <div>
-      <h3>Log new set:</h3>
+    <Wrapper>
+      <SectionTitle>Log new set:</SectionTitle>
       <Button
         onClick={() => {
           setClicked('HIIT');
@@ -49,9 +49,7 @@ function LogSetButtonBar() {
           ))
         : null}
 
-      <h3>
-        {clicked} Exercises
-      </h3>
+      <SectionTitle>{clicked && clicked !== 'HIIT' ? `${clicked} Exercises` : null} </SectionTitle>
 
       {currentExercises ? (
         currentExercises.map((exercise) => (
@@ -66,12 +64,22 @@ function LogSetButtonBar() {
         <HIITLogForm />
       ) : null}
 
-
       {inputExercise ? (
         <ExerciseLogForm selectedExercise={inputExercise} />
       ) : null}
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+
+`;
+
+const SectionTitle = styled.h3`
+  margin-top: 15px;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 15px;
+`;
 
 export default LogSetButtonBar;

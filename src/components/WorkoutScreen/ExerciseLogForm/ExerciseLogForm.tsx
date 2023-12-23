@@ -5,6 +5,7 @@ import { useBoundStore } from '@/hooks/state/useSessionStore';
 import Form from '@/components/_Shared/Form';
 import InputLabel from '@/components/_Shared/InputLabel';
 import FormInput from '@/components/_Shared/FormInput';
+import styled from 'styled-components';
 
 interface ComponentProps {
   selectedExercise: string;
@@ -35,7 +36,6 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
   });
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    console.log(data);
     const newSet: set = {
       id: crypto.randomUUID(),
       reps: Number(data.reps),
@@ -61,8 +61,8 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
   }, [formState, reset]);
 
   return (
-    <div>
-      Log set: {selectedExercise}
+    <Wrapper>
+      <SectionTitle>Log set: {selectedExercise}</SectionTitle>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputLabel htmlFor="weight">Weight Used</InputLabel>
         <Controller
@@ -95,8 +95,21 @@ function ExerciseLogForm({ selectedExercise }: ComponentProps) {
           type="submit"
         />
       </Form>
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  margin-top: 15px;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 15px;
+`;
+
+const SectionTitle = styled.h3`
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 15px;
+`;
 
 export default ExerciseLogForm;

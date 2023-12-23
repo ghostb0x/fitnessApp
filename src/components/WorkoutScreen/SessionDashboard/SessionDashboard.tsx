@@ -43,6 +43,7 @@ function SessionDashboard() {
 
   return (
     <Wrapper>
+      <SectionTitle>Logged Sets</SectionTitle>
       <Stats>
         {displayHiit}
         {displayExercises}
@@ -54,11 +55,23 @@ function SessionDashboard() {
 const Wrapper = styled.section`
   display: grid;
   grid-template-columns: 250px, 1fr;
+
 `;
+
+const SectionTitle = styled.h2`
+  font-size: 18px;
+  text-align: center;
+`;
+
 const Stats = styled.div`
+  margin-top: 10px;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 20px;
   display: grid;
   /* want columns to repeat based on number of divs as children */
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 50px;
 `;
 
 export default SessionDashboard;

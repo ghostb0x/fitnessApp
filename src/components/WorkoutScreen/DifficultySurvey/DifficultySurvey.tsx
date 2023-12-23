@@ -39,7 +39,7 @@ function DifficultySurvey() {
 const SectionWrapper = styled.section`
   border: 1px solid white;
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,7 +48,6 @@ const SectionWrapper = styled.section`
 const SectionTitle = styled.h2`
   font-size: 25px;
   text-align: center;
-
 `;
 
 const SurveyWrapper = styled.div`

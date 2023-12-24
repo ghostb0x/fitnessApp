@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import SessionDashboard from '@/components/WorkoutScreen/SessionDashboard';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import { useRouter } from 'next/navigation';
@@ -9,7 +8,7 @@ import Button from '@/components/_Shared/Button';
 import { isSameSecond } from 'date-fns';
 import SummaryDisplay from '@/components/SummaryDisplay';
 
-export default function Workout() {
+export default function PostWorkout() {
   let currentSession = useBoundStore((state) => state.variables);
 
   const { loadStored, endSession } = useSessionsContext();
@@ -34,22 +33,6 @@ export default function Workout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function formatAsTime(seconds: number) {
-    let hours = Math.floor(seconds / 3600);
-    let minutes = Math.floor((seconds % 3600) / 60);
-    seconds = seconds % 60;
-
-    let displayTime =
-      hours.toString().padStart(2, '0') +
-      ':' +
-      minutes.toString().padStart(2, '0') +
-      ':' +
-      seconds.toString().padStart(2, '0');
-
-    return displayTime;
-  }
-
-  const timeElapsed = formatAsTime(currentSession.secondsElapsed);
 
   let resetState = useBoundStore((state) => state.actions.reset);
 

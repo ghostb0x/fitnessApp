@@ -10,19 +10,20 @@ const SessionsContext =
   React.createContext<SessionsProviderValueType | null>(null);
 
 function useSessionsManager() {
-  //initialize saved sessions from local storage
-  // leave as empty array if none found
 
+  const [viewSelected, setViewSelected] = React.useState<session | null>(null)
+  
   const [savedSessions, setSavedSessions] = React.useState<session[]>(
     []
   );
-
+  //initialize saved sessions from local storage
+  // leave as empty array if none found
   const loadStored = () => {
     const stored =
       typeof window !== 'undefined'
         ? window.localStorage.getItem('saved-sessions')
         : null;
-    console.log(stored);
+
     if (stored) {
       setSavedSessions(JSON.parse(stored));
     }
@@ -38,7 +39,7 @@ function useSessionsManager() {
   }
 
   function endSession(sesh: session) {
-    setSavedSessions(prevSessions => {
+    setSavedSessions((prevSessions) => {
       const newSaves = structuredClone(prevSessions);
       newSaves.unshift(sesh);
       const stringifiedSaves = JSON.stringify(newSaves);
@@ -47,12 +48,16 @@ function useSessionsManager() {
     });
   }
 
+
+
   return {
     savedSessions,
     setSavedSessions,
     deleteSavedSession,
     loadStored,
     endSession,
+    viewSelected,
+    setViewSelected,
   };
 }
 

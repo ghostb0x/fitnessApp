@@ -13,11 +13,6 @@ interface IDashboardProps {
 }
 
 function SessionDashboard({hiitSessions, exercises}: IDashboardProps) {
-  // let hiitSessions = useBoundStore(
-  //   (state) => state.variables.hiitSessions
-  // );
-  // let exercises = useBoundStore((state) => state.variables.exercises);
-  //unpack HIIT and Exercises, and format for display
 
   const displayHiit = hiitSessions.length ? (
     <div>

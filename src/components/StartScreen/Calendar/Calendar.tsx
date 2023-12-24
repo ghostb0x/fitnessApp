@@ -4,6 +4,43 @@ import styled from 'styled-components';
 import { formatDistanceToNow, parseJSON } from 'date-fns';
 import Button from '../../_Shared/Button';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
+import { session } from '@/types/types';
+
+interface IListItemCompProps {
+  index: number;
+  showAll: boolean;
+  startTime: session['startTime'];
+  focusAreas: session['focusAreas'];
+  difficulty: session['difficulty'];
+  deleteSavedSession: (deleteIndex: number) => void;
+}
+
+function ListItemComp({
+  index,
+  showAll,
+  startTime,
+  focusAreas,
+  difficulty,
+  deleteSavedSession,
+}: IListItemCompProps) {
+  return (
+    <ListItem>
+      {showAll ? (
+        <Spacer>
+          <DeleteHistory
+            title="Delete from history"
+            onClick={() => deleteSavedSession(index)}
+          >
+            X
+          </DeleteHistory>
+        </Spacer>
+      ) : null}
+      <p>{formatDistanceToNow(parseJSON(startTime))} ago</p>
+      <p>Focus areas: {focusAreas.join(' + ')} </p>
+      <p>Difficulty: {difficulty}</p>
+    </ListItem>
+  );
+}
 
 function Calendar() {
   const { savedSessions, deleteSavedSession } = useSessionsContext();
@@ -14,34 +51,30 @@ function Calendar() {
     .slice(0, 3)
     .map(({ startTime, focusAreas, difficulty }, index) => {
       return (
-        <ListItem
+        <ListItemComp
           key={showAll.toString() + startTime.toString() + index}
-        >
-          <p>{formatDistanceToNow(parseJSON(startTime))} ago</p>
-          <p>Focus areas: {focusAreas.join(' + ')} </p>
-          <p>Difficulty: {difficulty}</p>
-        </ListItem>
+          index={index}
+          showAll={showAll}
+          startTime={startTime}
+          focusAreas={focusAreas}
+          difficulty={difficulty}
+          deleteSavedSession={deleteSavedSession}
+        />
       );
     });
 
   const fullHistory = savedSessions.map(
     ({ startTime, focusAreas, difficulty }, index) => {
       return (
-        <ListItem
+        <ListItemComp
           key={showAll.toString() + startTime.toString() + index}
-        >
-          <Spacer>
-            <DeleteHistory
-              title="Delete from history"
-              onClick={() => deleteSavedSession(index)}
-            >
-              X
-            </DeleteHistory>
-          </Spacer>
-          <p>{formatDistanceToNow(parseJSON(startTime))} ago</p>
-          <p>Focus areas: {focusAreas.join(' + ')} </p>
-          <p>Difficulty: {difficulty}</p>
-        </ListItem>
+          index={index}
+          showAll={showAll}
+          startTime={startTime}
+          focusAreas={focusAreas}
+          difficulty={difficulty}
+          deleteSavedSession={deleteSavedSession}
+        />
       );
     }
   );

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import Button from '@/components/_Shared/Button';
 import { isSameSecond } from 'date-fns';
+import SummaryDisplay from '@/components/SummaryDisplay';
 
 export default function Workout() {
   let currentSession = useBoundStore((state) => state.variables);
@@ -50,8 +51,6 @@ export default function Workout() {
 
   const timeElapsed = formatAsTime(currentSession.secondsElapsed);
 
-  const difficulty = currentSession.difficulty;
-
   let resetState = useBoundStore((state) => state.actions.reset);
 
   const router = useRouter();
@@ -65,12 +64,7 @@ export default function Workout() {
     <SectionWrapper>
       <SectionTitle>Well Done! You Did Great!</SectionTitle>
 
-      <TimeAndDifficulty>
-        <Text>Time: {timeElapsed}</Text>
-        <Text>Difficulty: {difficulty}</Text>
-      </TimeAndDifficulty>
-      <SectionTitle>🤸 Don&apos;t Forget to Stretch 🤸</SectionTitle>
-      <SessionDashboard hiitSessions={currentSession.hiitSessions} exercises={currentSession.exercises}/>
+      <SummaryDisplay session={currentSession} />
       <Button
         onClick={resetApp}
         color="purple"
@@ -93,17 +87,3 @@ const SectionTitle = styled.h2`
   text-align: center;
 `;
 
-const TimeAndDifficulty = styled.div`
-  border: 1px solid white;
-  border-radius: 15px;
-  padding: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
-`;
-
-const Text = styled.p`
-  font-size: 25px;
-  text-align: center;
-`;

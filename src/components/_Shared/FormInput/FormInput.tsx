@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Button from '../Button';
 
 interface InputProps {
   id: string;
@@ -9,40 +8,58 @@ interface InputProps {
 }
 const FormInput = React.forwardRef<
   HTMLInputElement | HTMLSelectElement, // Union type for ref
-  InputProps>(
-({ children, id, type, ...delegated }, ref) => {
-
+  InputProps
+>(({ children, id, type, ...delegated }, ref) => {
   let component;
 
-
   switch (type) {
-    case "number":
-      component= <StyledInput
-      id={id}
-      type="number"
-      min="0"
-      {...delegated}
-    />
+    case 'number':
+      component = (
+        <StyledInput
+          id={id}
+          type="number"
+          min="0"
+          ref={ref as React.Ref<HTMLInputElement>}
+          {...delegated}
+        />
+      );
       break;
-    case "submit":
-      component = <SubmitButton
-      id={id}
-      type="submit"
-      {...delegated}
-    />
+    case 'submit':
+      component = (
+        <SubmitButton
+          id={id}
+          type="submit"
+          ref={ref as React.Ref<HTMLInputElement>}
+          {...delegated}
+        />
+      );
       break;
-    case "checkbox":
-      component = <StyledCheckbox id={id} type="checkbox" {...delegated}/>
+    case 'checkbox':
+      component = (
+        <StyledCheckbox
+          id={id}
+          type="checkbox"
+          ref={ref as React.Ref<HTMLInputElement>}
+          {...delegated}
+        />
+      );
       break;
-    case "select":
-      component = <StyledSelect id={id} {...delegated}>{children}</StyledSelect>
+    case 'select':
+      component = (
+        <StyledSelect
+          id={id}
+          ref={ref as React.Ref<HTMLSelectElement>}
+          {...delegated}
+        >
+          {children}
+        </StyledSelect>
+      );
     default:
       break;
   }
 
-  return component
-
-})
+  return component;
+});
 
 FormInput.displayName = 'FormInput';
 
@@ -51,7 +68,6 @@ const StyledInput = styled.input`
   width: 100%;
   height: 30px;
   font-size: 25px;
-
 `;
 
 const StyledCheckbox = styled.input`

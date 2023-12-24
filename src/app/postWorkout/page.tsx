@@ -6,11 +6,32 @@ import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import Button from '@/components/_Shared/Button';
+import { isSameSecond } from 'date-fns';
 
 export default function Workout() {
-  const { endSession } = useSessionsContext();
-
   let currentSession = useBoundStore((state) => state.variables);
+
+  const { loadStored, endSession } = useSessionsContext();
+
+  React.useEffect(() => {
+    loadStored();
+
+    /** checks that current session was not the initial store values
+    where start and end times are identical
+    start and end time should only be equal
+    on direct page loads to postWorkout screen
+    which come from viewing logged sessions via Calendar click
+    or navigation errors where someone navs directly to postWorkout
+    page without going through normal app routes */
+    if (
+      !isSameSecond(currentSession.endTime, currentSession.startTime)
+    ) {
+      endSession(currentSession);
+    }
+
+    /** NOTE: Intentionally running effect only on component mount */ 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function formatAsTime(seconds: number) {
     let hours = Math.floor(seconds / 3600);
@@ -31,13 +52,6 @@ export default function Workout() {
 
   const difficulty = currentSession.difficulty;
 
-  React.useEffect(() => {
-    endSession(currentSession);
-
-    // NOTE: Intentionally running effect only on component mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   let resetState = useBoundStore((state) => state.actions.reset);
 
   const router = useRouter();
@@ -50,10 +64,12 @@ export default function Workout() {
   return (
     <SectionWrapper>
       <SectionTitle>Well Done! You Did Great!</SectionTitle>
+
       <TimeAndDifficulty>
         <Text>Time: {timeElapsed}</Text>
         <Text>Difficulty: {difficulty}</Text>
       </TimeAndDifficulty>
+      <SectionTitle>🤸 Don&apos;t Forget to Stretch 🤸</SectionTitle>
       <SessionDashboard />
       <Button
         onClick={resetApp}

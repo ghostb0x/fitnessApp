@@ -17,12 +17,16 @@ function useSessionsManager() {
     []
   );
 
-  React.useEffect(() => {
-    const stored = window.localStorage.getItem('saved-sessions');
+  const loadStored = () => {
+    const stored =
+      typeof window !== 'undefined'
+        ? window.localStorage.getItem('saved-sessions')
+        : null;
+    console.log(stored);
     if (stored) {
       setSavedSessions(JSON.parse(stored));
     }
-  }, []);
+  };
 
   function deleteSavedSession(deleteIndex: number) {
     const filtered = savedSessions.filter(
@@ -34,17 +38,20 @@ function useSessionsManager() {
   }
 
   function endSession(sesh: session) {
-    const newSaves = structuredClone(savedSessions);
-    newSaves.unshift(sesh);
-    const stringifiedSaves = JSON.stringify(newSaves);
-    window.localStorage.setItem('saved-sessions', stringifiedSaves);
-    setSavedSessions(newSaves);
+    setSavedSessions(prevSessions => {
+      const newSaves = structuredClone(prevSessions);
+      newSaves.unshift(sesh);
+      const stringifiedSaves = JSON.stringify(newSaves);
+      window.localStorage.setItem('saved-sessions', stringifiedSaves);
+      return newSaves;
+    });
   }
 
   return {
     savedSessions,
     setSavedSessions,
     deleteSavedSession,
+    loadStored,
     endSession,
   };
 }

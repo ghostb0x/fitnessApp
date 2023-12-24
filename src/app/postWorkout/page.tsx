@@ -70,7 +70,7 @@ export default function Workout() {
         <Text>Difficulty: {difficulty}</Text>
       </TimeAndDifficulty>
       <SectionTitle>🤸 Don&apos;t Forget to Stretch 🤸</SectionTitle>
-      <SessionDashboard />
+      <SessionDashboard hiitSessions={currentSession.hiitSessions} exercises={currentSession.exercises}/>
       <Button
         onClick={resetApp}
         color="purple"

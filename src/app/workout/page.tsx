@@ -12,7 +12,7 @@ export default function Workout() {
   let updateStartTime = useBoundStore(
     (state) => state.actions.updateStartTime
   );
-  let currentSession = useBoundStore((state) => state.variables);
+  let { hiitSessions, exercises} = useBoundStore((state) => state.variables);
 
   React.useEffect(() => {
     updateStartTime(startTime);
@@ -26,7 +26,7 @@ export default function Workout() {
       <SectionTitle>Time to Work Hard!</SectionTitle>
 
       <Timer startTime={startTime} />
-      <SessionDashboard />
+      <SessionDashboard hiitSessions={hiitSessions} exercises={exercises}/>
       <LogSetButtonBar />
       <EndWorkoutButton />
     </SectionWrapper>

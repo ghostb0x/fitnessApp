@@ -11,7 +11,7 @@ function Calendar() {
   const [showAll, setShowAll] = React.useState(false);
 
   const shortHistory = savedSessions
-    .slice(0, 6)
+    .slice(0, 3)
     .map(({ startTime, focusAreas, difficulty }, index) => {
       return (
         <ListItem

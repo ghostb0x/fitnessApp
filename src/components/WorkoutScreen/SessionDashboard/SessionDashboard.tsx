@@ -1,12 +1,22 @@
 import * as React from 'react';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
 import styled from 'styled-components';
+import {
+  HiitSession,
+  exercise,
+  newExercisePayload,
+} from '@/types/types';
 
-function SessionDashboard() {
-  let hiitSessions = useBoundStore(
-    (state) => state.variables.hiitSessions
-  );
-  let exercises = useBoundStore((state) => state.variables.exercises);
+interface IDashboardProps {
+  hiitSessions: HiitSession[];
+  exercises: Record<string, exercise>
+}
+
+function SessionDashboard({hiitSessions, exercises}: IDashboardProps) {
+  // let hiitSessions = useBoundStore(
+  //   (state) => state.variables.hiitSessions
+  // );
+  // let exercises = useBoundStore((state) => state.variables.exercises);
   //unpack HIIT and Exercises, and format for display
 
   const displayHiit = hiitSessions.length ? (

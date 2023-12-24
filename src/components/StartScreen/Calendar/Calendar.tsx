@@ -5,6 +5,7 @@ import { formatDistanceToNow, parseJSON } from 'date-fns';
 import Button from '../../_Shared/Button';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import { session } from '@/types/types';
+import { useRouter } from 'next/navigation';
 
 interface IListItemCompProps {
   index: number;
@@ -12,7 +13,7 @@ interface IListItemCompProps {
   startTime: session['startTime'];
   focusAreas: session['focusAreas'];
   difficulty: session['difficulty'];
-  deleteSavedSession: (deleteIndex: number) => void;
+  onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
 function ListItemComp({
@@ -21,15 +22,20 @@ function ListItemComp({
   startTime,
   focusAreas,
   difficulty,
-  deleteSavedSession,
+  onClick,
 }: IListItemCompProps) {
+  const { deleteSavedSession } = useSessionsContext();
+
   return (
-    <ListItem>
+    <ListItem onClick={onClick}>
       {showAll ? (
         <Spacer>
           <DeleteHistory
             title="Delete from history"
-            onClick={() => deleteSavedSession(index)}
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteSavedSession(index);
+            }}
           >
             X
           </DeleteHistory>
@@ -43,41 +49,50 @@ function ListItemComp({
 }
 
 function Calendar() {
-  const { savedSessions, deleteSavedSession } = useSessionsContext();
+  const { savedSessions, setViewSelected } = useSessionsContext();
 
   const [showAll, setShowAll] = React.useState(false);
 
+  const router = useRouter();
+
+  function viewSelectedSession(session: session) {
+    setViewSelected(session);
+    router.push('/viewPast');
+  }
+
   const shortHistory = savedSessions
     .slice(0, 3)
-    .map(({ startTime, focusAreas, difficulty }, index) => {
+    .map((session, index) => {
       return (
         <ListItemComp
-          key={showAll.toString() + startTime.toString() + index}
+          onClick={() => viewSelectedSession(session)}
+          key={
+            showAll.toString() + session.startTime.toString() + index
+          }
           index={index}
           showAll={showAll}
-          startTime={startTime}
-          focusAreas={focusAreas}
-          difficulty={difficulty}
-          deleteSavedSession={deleteSavedSession}
+          startTime={session.startTime}
+          focusAreas={session.focusAreas}
+          difficulty={session.difficulty}
         />
       );
     });
 
-  const fullHistory = savedSessions.map(
-    ({ startTime, focusAreas, difficulty }, index) => {
-      return (
-        <ListItemComp
-          key={showAll.toString() + startTime.toString() + index}
-          index={index}
-          showAll={showAll}
-          startTime={startTime}
-          focusAreas={focusAreas}
-          difficulty={difficulty}
-          deleteSavedSession={deleteSavedSession}
-        />
-      );
-    }
-  );
+  const fullHistory = savedSessions.map((session, index) => {
+    return (
+      <ListItemComp
+        onClick={() => viewSelectedSession(session)}
+        key={
+          showAll.toString() + session.startTime.toString() + index
+        }
+        index={index}
+        showAll={showAll}
+        startTime={session.startTime}
+        focusAreas={session.focusAreas}
+        difficulty={session.difficulty}
+      />
+    );
+  });
 
   return (
     <SectionWrapper>
@@ -129,6 +144,9 @@ const ListItem = styled.li`
   border: var(--color-primary) 3px solid;
   padding: 10px;
   border-radius: 10px;
+  :hover {
+    background-color: green;
+  }
 `;
 
 const Spacer = styled.div`

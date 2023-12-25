@@ -54,7 +54,7 @@ const useSessionStore = createWithEqualityFn<ZustandType>(
       updateId: (newId) =>
         set((state) => ({
           ...state,
-          variables: { ...state.variables, newId },
+          variables: { ...state.variables, id: newId },
         })),
       updateStartTime: (startTime) =>
         set((state) => ({

@@ -5,9 +5,7 @@ import styled from 'styled-components';
 import { formatDistanceToNow, parseJSON } from 'date-fns';
 import { session } from '@/types/types';
 
-
-function SummaryDisplay({session}: {session: session}) {
-
+function SummaryDisplay({ session }: { session: session }) {
   function formatAsTime(seconds: number) {
     let hours = Math.floor(seconds / 3600);
     let minutes = Math.floor((seconds % 3600) / 60);
@@ -28,12 +26,15 @@ function SummaryDisplay({session}: {session: session}) {
   return (
     <>
       <TimeAndDifficulty>
-        <Text>{formatDistanceToNow(parseJSON(session.startTime))} ago</Text>
+        <Text>
+          {formatDistanceToNow(parseJSON(session.startTime))} ago
+        </Text>
         <Text>Time: {timeElapsed}</Text>
         <Text>Difficulty: {session.difficulty}</Text>
       </TimeAndDifficulty>
       <SectionTitle>🤸 Don&apos;t Forget to Stretch 🤸</SectionTitle>
       <SessionDashboard
+        displaySessionId={session.id}
         hiitSessions={session.hiitSessions}
         exercises={session.exercises}
       />

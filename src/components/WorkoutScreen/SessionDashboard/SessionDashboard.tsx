@@ -9,11 +9,13 @@ import {
 } from '@/types/types';
 
 interface IDashboardProps {
+  displaySessionId: string;
   hiitSessions: HiitSession[];
   exercises: Record<string, exercise>;
 }
 
 function SessionDashboard({
+  displaySessionId,
   hiitSessions,
   exercises,
 }: IDashboardProps) {
@@ -45,6 +47,13 @@ function SessionDashboard({
         : (previousTotal =
             savedSessions[previouslyDone].exercises[exercise]
               .totalReps);
+        
+      console.log(previousTotal)
+      console.log(displaySessionId)
+      console.log(savedSessions[previouslyDone].id)
+      const previousTotalComponent = (
+        <p>(Previous Total: {previousTotal})</p>
+      );
 
       const { name, sets, totalReps } = exercises[exercise];
 
@@ -56,7 +65,12 @@ function SessionDashboard({
               Set {index + 1}: {set.reps} reps at {set.weight} lbs
             </p>
           ))}
-          <p>Total = {totalReps} (Previous Total: {previousTotal})</p>
+          <div>
+            <p>Total = {totalReps}</p>
+            {displaySessionId !== savedSessions[previouslyDone].id
+              ? previousTotalComponent
+              : null}
+          </div>
         </div>
       );
     }

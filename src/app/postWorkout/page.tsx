@@ -10,12 +10,12 @@ import SummaryDisplay from '@/components/SummaryDisplay';
 
 export default function PostWorkout() {
   let currentSession = useBoundStore((state) => state.variables);
-  let updateId = useBoundStore((state) => state.actions.updateId);
 
   const { loadStored, endSession } = useSessionsContext();
 
   React.useEffect(() => {
-    updateId(crypto.randomUUID())
+    console.log("post workout effect ran")
+    
     loadStored();
 
     /** checks that current session was not the initial store values

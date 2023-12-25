@@ -9,14 +9,16 @@ import Timer from '@/components/WorkoutScreen/Timer';
 
 export default function Workout() {
   let startTime = new Date();
+  let updateId = useBoundStore((state) => state.actions.updateId);
+  
   let updateStartTime = useBoundStore(
     (state) => state.actions.updateStartTime
   );
-  let { hiitSessions, exercises} = useBoundStore((state) => state.variables);
+  let { id, hiitSessions, exercises} = useBoundStore((state) => state.variables);
 
   React.useEffect(() => {
     updateStartTime(startTime);
-
+    updateId(crypto.randomUUID())
     // NOTE: Intentionally running effect only on component mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -26,7 +28,7 @@ export default function Workout() {
       <SectionTitle>Time to Work Hard!</SectionTitle>
 
       <Timer startTime={startTime} />
-      <SessionDashboard hiitSessions={hiitSessions} exercises={exercises}/>
+      <SessionDashboard displaySessionId={id} hiitSessions={hiitSessions} exercises={exercises}/>
       <LogSetButtonBar />
       <EndWorkoutButton />
     </SectionWrapper>

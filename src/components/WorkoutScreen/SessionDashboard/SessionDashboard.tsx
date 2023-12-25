@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
 import styled from 'styled-components';
+import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import {
   HiitSession,
   exercise,
@@ -9,10 +10,14 @@ import {
 
 interface IDashboardProps {
   hiitSessions: HiitSession[];
-  exercises: Record<string, exercise>
+  exercises: Record<string, exercise>;
 }
 
-function SessionDashboard({hiitSessions, exercises}: IDashboardProps) {
+function SessionDashboard({
+  hiitSessions,
+  exercises,
+}: IDashboardProps) {
+  const { savedSessions } = useSessionsContext();
 
   const displayHiit = hiitSessions.length ? (
     <div>
@@ -30,6 +35,17 @@ function SessionDashboard({hiitSessions, exercises}: IDashboardProps) {
 
   const displayExercises = Object.keys(exercises).map(
     (exercise, index) => {
+      const previouslyDone = savedSessions.findIndex((session) => {
+        return Object.keys(session.exercises).includes(exercise);
+      });
+
+      let previousTotal: number = 0;
+      previouslyDone === -1
+        ? null
+        : (previousTotal =
+            savedSessions[previouslyDone].exercises[exercise]
+              .totalReps);
+
       const { name, sets, totalReps } = exercises[exercise];
 
       return (
@@ -40,7 +56,7 @@ function SessionDashboard({hiitSessions, exercises}: IDashboardProps) {
               Set {index + 1}: {set.reps} reps at {set.weight} lbs
             </p>
           ))}
-          <p>Total = {totalReps}</p>
+          <p>Total = {totalReps} (Previous Total: {previousTotal})</p>
         </div>
       );
     }
@@ -60,7 +76,6 @@ function SessionDashboard({hiitSessions, exercises}: IDashboardProps) {
 const Wrapper = styled.section`
   display: grid;
   grid-template-columns: 250px, 1fr;
-
 `;
 
 const SectionTitle = styled.h2`

@@ -2,7 +2,9 @@
 import * as React from 'react';
 import SessionDashboard from '@/components/WorkoutScreen/SessionDashboard';
 import styled from 'styled-components';
+import { formatDistanceToNow, parseJSON } from 'date-fns';
 import { session } from '@/types/types';
+
 
 function SummaryDisplay({session}: {session: session}) {
 
@@ -26,6 +28,7 @@ function SummaryDisplay({session}: {session: session}) {
   return (
     <>
       <TimeAndDifficulty>
+        <Text>{formatDistanceToNow(parseJSON(session.startTime))} ago</Text>
         <Text>Time: {timeElapsed}</Text>
         <Text>Difficulty: {session.difficulty}</Text>
       </TimeAndDifficulty>

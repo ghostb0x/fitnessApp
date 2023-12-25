@@ -144,7 +144,7 @@ const ListItem = styled.li`
   border: var(--color-primary) 3px solid;
   padding: 10px;
   border-radius: 10px;
-  :hover {
+  &:hover {
     background-color: green;
   }
 `;

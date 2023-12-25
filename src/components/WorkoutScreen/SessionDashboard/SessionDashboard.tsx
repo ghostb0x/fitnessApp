@@ -41,14 +41,26 @@ function SessionDashboard({
         return Object.keys(session.exercises).includes(exercise);
       });
 
-      let previousTotal: number = 0;
+      let previousTotalReps: number = 0;
+      let previousMaxWeight: number = 0;
       let previousTotalComponent: React.JSX.Element | null = null;
       if (previouslyDone !== -1) {
-        previousTotal =
+        previousTotalReps =
           savedSessions[previouslyDone].exercises[exercise].totalReps;
 
+        previousMaxWeight = savedSessions[previouslyDone].exercises[
+          exercise
+        ].sets.reduce(function (prev, current) {
+          return prev && prev.weight > current.weight
+            ? prev
+            : current;
+        }).weight;
+
         previousTotalComponent = (
-          <p>(Previous Total: {previousTotal})</p>
+          <p>
+            (Previous Total: {previousTotalReps} | Max Weight:{' '}
+            {previousMaxWeight})
+          </p>
         );
       }
 

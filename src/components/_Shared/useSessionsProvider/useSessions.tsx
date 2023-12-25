@@ -10,9 +10,9 @@ const SessionsContext =
   React.createContext<SessionsProviderValueType | null>(null);
 
 function useSessionsManager() {
+  const [viewSelected, setViewSelected] =
+    React.useState<session | null>(null);
 
-  const [viewSelected, setViewSelected] = React.useState<session | null>(null)
-  
   const [savedSessions, setSavedSessions] = React.useState<session[]>(
     []
   );
@@ -25,7 +25,14 @@ function useSessionsManager() {
         : null;
 
     if (stored) {
-      setSavedSessions(JSON.parse(stored));
+      // for backfilling ids prior to implementing session ids
+      let storedSessions: session[] = JSON.parse(stored);
+      storedSessions.forEach((session) => {
+        if (!!!Object.keys(session).includes('id')) {
+          session.id = crypto.randomUUID();
+        }
+      });
+      setSavedSessions(storedSessions);
     }
   };
 
@@ -47,8 +54,6 @@ function useSessionsManager() {
       return newSaves;
     });
   }
-
-
 
   return {
     savedSessions,

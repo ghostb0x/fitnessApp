@@ -9,6 +9,7 @@ import {
 } from 'zustand/traditional';
 
 const defaultState: session = {
+  id: "current",
   startTime: new Date(),
   endTime: new Date(),
   secondsElapsed: 0,
@@ -50,6 +51,11 @@ const useSessionStore = createWithEqualityFn<ZustandType>(
   (set, get) => ({
     variables: defaultState,
     actions: {
+      updateId: (newId) =>
+        set((state) => ({
+          ...state,
+          variables: { ...state.variables, newId },
+        })),
       updateStartTime: (startTime) =>
         set((state) => ({
           ...state,

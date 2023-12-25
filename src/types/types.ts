@@ -1,4 +1,5 @@
 export interface session {
+  id: string;
   startTime: Date;
   endTime: Date;
   secondsElapsed: number;

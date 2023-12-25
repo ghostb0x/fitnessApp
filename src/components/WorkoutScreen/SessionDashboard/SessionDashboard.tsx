@@ -19,7 +19,8 @@ function SessionDashboard({
   hiitSessions,
   exercises,
 }: IDashboardProps) {
-  const { savedSessions } = useSessionsContext();
+
+  const { savedSessions, viewSelected } = useSessionsContext();
 
   const displayHiit = hiitSessions.length ? (
     <div>
@@ -67,7 +68,7 @@ function SessionDashboard({
           ))}
           <div>
             <p>Total = {totalReps}</p>
-            {displaySessionId !== savedSessions[previouslyDone].id
+            {displaySessionId !== savedSessions[previouslyDone].id && displaySessionId !== viewSelected?.id
               ? previousTotalComponent
               : null}
           </div>

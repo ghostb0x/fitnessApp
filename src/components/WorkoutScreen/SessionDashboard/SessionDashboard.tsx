@@ -19,7 +19,6 @@ function SessionDashboard({
   hiitSessions,
   exercises,
 }: IDashboardProps) {
-
   const { savedSessions, viewSelected } = useSessionsContext();
 
   const displayHiit = hiitSessions.length ? (
@@ -43,18 +42,15 @@ function SessionDashboard({
       });
 
       let previousTotal: number = 0;
-      previouslyDone === -1
-        ? null
-        : (previousTotal =
-            savedSessions[previouslyDone].exercises[exercise]
-              .totalReps);
-        
-      console.log(previousTotal)
-      console.log(displaySessionId)
-      console.log(savedSessions[previouslyDone].id)
-      const previousTotalComponent = (
-        <p>(Previous Total: {previousTotal})</p>
-      );
+      let previousTotalComponent: React.JSX.Element | null = null;
+      if (previouslyDone !== -1) {
+        previousTotal =
+          savedSessions[previouslyDone].exercises[exercise].totalReps;
+
+        previousTotalComponent = (
+          <p>(Previous Total: {previousTotal})</p>
+        );
+      }
 
       const { name, sets, totalReps } = exercises[exercise];
 
@@ -68,7 +64,11 @@ function SessionDashboard({
           ))}
           <div>
             <p>Total = {totalReps}</p>
-            {displaySessionId !== savedSessions[previouslyDone].id && displaySessionId !== viewSelected?.id
+            {previouslyDone === -1
+              ? null
+              : displaySessionId !==
+                  savedSessions[previouslyDone].id &&
+                displaySessionId !== viewSelected?.id
               ? previousTotalComponent
               : null}
           </div>

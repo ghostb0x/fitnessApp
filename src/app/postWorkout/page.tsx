@@ -14,8 +14,6 @@ export default function PostWorkout() {
   const { loadStored, endSession } = useSessionsContext();
 
   React.useEffect(() => {
-    console.log("post workout effect ran")
-    
     loadStored();
 
     /** checks that current session was not the initial store values
@@ -31,10 +29,9 @@ export default function PostWorkout() {
       endSession(currentSession);
     }
 
-    /** NOTE: Intentionally running effect only on component mount */ 
+    /** NOTE: Intentionally running effect only on component mount */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   let resetState = useBoundStore((state) => state.actions.reset);
 
@@ -71,4 +68,3 @@ const SectionTitle = styled.h2`
   font-size: 25px;
   text-align: center;
 `;
-

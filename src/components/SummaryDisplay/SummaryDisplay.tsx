@@ -32,7 +32,7 @@ function SummaryDisplay({ session }: { session: session }) {
         <Text>Time: {timeElapsed}</Text>
         <Text>Difficulty: {session.difficulty}</Text>
       </TimeAndDifficulty>
-      <SectionTitle>🤸 Don&apos;t Forget to Stretch 🤸</SectionTitle>
+      <SectionTitle>Don&apos;t Forget to Stretch 🤸</SectionTitle>
       <SessionDashboard
         displaySessionId={session.id}
         hiitSessions={session.hiitSessions}

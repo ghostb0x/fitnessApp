@@ -10,7 +10,6 @@ import { useRouter } from 'next/navigation';
 interface IListItemCompProps {
   index: number;
   showAll: boolean;
-  sessionId: string;
   startTime: session['startTime'];
   focusAreas: session['focusAreas'];
   difficulty: session['difficulty'];
@@ -20,14 +19,12 @@ interface IListItemCompProps {
 function ListItemComp({
   index,
   showAll,
-  sessionId,
   startTime,
   focusAreas,
   difficulty,
   onClick,
 }: IListItemCompProps) {
   const { deleteSavedSession } = useSessionsContext();
-  console.log(sessionId)
   return (
     <ListItem onClick={onClick}>
       {showAll ? (
@@ -43,7 +40,6 @@ function ListItemComp({
           </DeleteHistory>
         </Spacer>
       ) : null}
-      <p>id: {sessionId}</p>
       <p>{formatDistanceToNow(parseJSON(startTime))} ago</p>
       <p>Focus areas: {focusAreas.join(' + ')} </p>
       <p>Difficulty: {difficulty}</p>
@@ -73,7 +69,6 @@ function Calendar() {
             showAll.toString() + session.startTime.toString() + index
           }
           index={index}
-          sessionId={session.id}
           showAll={showAll}
           startTime={session.startTime}
           focusAreas={session.focusAreas}

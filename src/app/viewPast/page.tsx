@@ -1,13 +1,10 @@
 'use client';
 import React from 'react';
-import { useBoundStore } from '@/hooks/state/useSessionStore';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import Button from '@/components/_Shared/Button';
-import { isSameSecond } from 'date-fns';
 import SummaryDisplay from '@/components/SummaryDisplay';
-import { session } from '@/types/types';
 
 export default function ViewPast() {
   const { viewSelected } = useSessionsContext();
@@ -20,7 +17,7 @@ export default function ViewPast() {
 
   return (
     <SectionWrapper>
-      <SectionTitle>Remember This? What a doozy!</SectionTitle>
+      <SectionTitle>Remember This?</SectionTitle>
       {viewSelected ? (
         <SummaryDisplay session={viewSelected} />
       ) : (

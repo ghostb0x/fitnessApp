@@ -26,10 +26,10 @@ function LogSetButtonBar() {
 
   return (
     <Wrapper>
-      <SectionTitle>Log new set:</SectionTitle>
+      <SectionTitle>Log new set</SectionTitle>
       <Button
         onClick={() => {
-          setClicked('HIIT');
+          clicked === 'HIIT' ? setClicked('') : setClicked('HIIT');
           setInputExercise('');
         }}
       >
@@ -40,22 +40,29 @@ function LogSetButtonBar() {
             <Button
               key={area}
               onClick={() => {
-                setClicked(area);
                 setInputExercise('');
+                clicked === area ? setClicked('') : setClicked(area);
               }}
             >
               {area}
             </Button>
           ))
         : null}
-
-      <SectionTitle>{clicked && clicked !== 'HIIT' ? `${clicked} Exercises` : null} </SectionTitle>
-
+      {clicked && clicked !== 'HIIT' ? (
+        <Row>
+          <SectionTitle>{clicked} Exercises</SectionTitle>
+          <EditButton>Edit Exercises</EditButton>
+        </Row>
+      ) : null}{' '}
       {currentExercises ? (
         currentExercises.map((exercise) => (
           <Button
             key={exercise}
-            onClick={() => setInputExercise(exercise)}
+            onClick={() =>
+              inputExercise === exercise
+                ? setInputExercise('')
+                : setInputExercise(exercise)
+            }
           >
             {exercise}
           </Button>
@@ -63,7 +70,6 @@ function LogSetButtonBar() {
       ) : clicked === 'HIIT' ? (
         <HIITLogForm />
       ) : null}
-
       {inputExercise ? (
         <ExerciseLogForm selectedExercise={inputExercise} />
       ) : null}
@@ -71,15 +77,50 @@ function LogSetButtonBar() {
   );
 }
 
-const Wrapper = styled.div`
-
-`;
+const Wrapper = styled.div``;
 
 const SectionTitle = styled.h3`
   margin-top: 15px;
   font-size: 18px;
   text-align: center;
   margin-bottom: 15px;
+  width: 100%;
 `;
+
+const Row = styled.div`
+  margin-top: 30px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 398px) {
+    flex-wrap: wrap;
+  }   
+`;
+
+const EditButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  
+  border: none;
+  border-radius: 10rem;
+  padding: 0.5rem 1rem;
+
+  background-color: cornflowerblue;
+  text-align: center;
+  font-family: var(--font-roboto);
+  font-size: 0.8rem;
+  width: min-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 398px) {
+    position: relative;
+    width: 50%;
+  }   
+`
 
 export default LogSetButtonBar;

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import Button from '@/components/_Shared/Button';
 import { isSameSecond } from 'date-fns';
-import SummaryDisplay from '@/components/SummaryDisplay';
+import SummaryDisplay from '@/components/_Shared/SummaryDisplay';
 
 export default function PostWorkout() {
   let currentSession = useBoundStore((state) => state.variables);

@@ -4,7 +4,7 @@ import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import Button from '@/components/_Shared/Button';
-import SummaryDisplay from '@/components/SummaryDisplay';
+import SummaryDisplay from '@/components/_Shared/SummaryDisplay';
 
 export default function ViewPast() {
   const { viewSelected } = useSessionsContext();

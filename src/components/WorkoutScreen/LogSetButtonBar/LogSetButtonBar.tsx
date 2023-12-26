@@ -50,8 +50,9 @@ function LogSetButtonBar() {
         : null}
       {clicked && clicked !== 'HIIT' ? (
         <Row>
+          <Spacer />
           <SectionTitle>{clicked} Exercises</SectionTitle>
-          <EditButton>Edit Exercises</EditButton>
+          <EditButton>+/-</EditButton>
         </Row>
       ) : null}{' '}
       {currentExercises ? (
@@ -84,25 +85,25 @@ const SectionTitle = styled.h3`
   font-size: 18px;
   text-align: center;
   margin-bottom: 15px;
-  width: 100%;
 `;
 
 const Row = styled.div`
   margin-top: 30px;
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-  @media (max-width: 398px) {
-    flex-wrap: wrap;
-  }   
+const Spacer = styled.div`
+  width: 51px;
 `;
 
 const EditButton = styled.button`
-  position: absolute;
+  /* position: absolute;
   top: 0;
   right: 0;
-  
+   */
   border: none;
   border-radius: 10rem;
   padding: 0.5rem 1rem;
@@ -111,16 +112,11 @@ const EditButton = styled.button`
   text-align: center;
   font-family: var(--font-roboto);
   font-size: 0.8rem;
-  width: min-content;
+  width: 51px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
-  @media (max-width: 398px) {
-    position: relative;
-    width: 50%;
-  }   
 `
 
 export default LogSetButtonBar;

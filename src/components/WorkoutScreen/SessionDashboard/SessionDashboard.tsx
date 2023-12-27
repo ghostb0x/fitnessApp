@@ -21,6 +21,8 @@ function SessionDashboard({
 }: IDashboardProps) {
   const { savedSessions, viewSelected } = useSessionsContext();
 
+  const deleteExerciseSet = useBoundStore( (state) => state.actions.deleteExerciseSet)
+
   const displayHiit = hiitSessions.length ? (
     <div>
       <h3>HIIT Sessions</h3>
@@ -70,9 +72,12 @@ function SessionDashboard({
         <div key={index}>
           <h3>{name}</h3>
           {sets.map((set, index) => (
-            <p key={index}>
-              Set {index + 1}: {set.reps} reps at {set.weight} lbs
-            </p>
+            <div key={index}>
+              <p>
+                Set {index + 1}: {set.reps} reps at {set.weight} lbs
+              </p>
+              <EditButton onClick={() => deleteExerciseSet(name, index)}>+/-</EditButton>
+            </div>
           ))}
           <div>
             <p>Total = {totalReps}</p>
@@ -120,5 +125,27 @@ const Stats = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 50px;
 `;
+
+
+const EditButton = styled.button`
+  /* position: absolute;
+  top: 0;
+  right: 0;
+   */
+  border: none;
+  border-radius: 10rem;
+  padding: 0.5rem 1rem;
+
+  background-color: cornflowerblue;
+  text-align: center;
+  font-family: var(--font-roboto);
+  font-size: 0.8rem;
+  width: 51px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`
+
 
 export default SessionDashboard;

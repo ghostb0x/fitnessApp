@@ -9,7 +9,7 @@ import {
 } from 'zustand/traditional';
 
 const defaultState: session = {
-  id: "current",
+  id: 'current',
   startTime: new Date(),
   endTime: new Date(),
   secondsElapsed: 0,
@@ -34,6 +34,10 @@ type ActionTypeFromStateShape<State> = {
 type SessionActions = ActionTypeFromStateShape<session> & {
   addNewHiitSession: (newSession: HiitSession) => void;
   addNewExercise: (newExercise: newExercisePayload) => void;
+  deleteExerciseSet: (
+    exerciseName: string,
+    deleteIndex: number
+  ) => void;
   reset: () => void;
 };
 
@@ -106,14 +110,14 @@ const useSessionStore = createWithEqualityFn<ZustandType>(
 
       addNewExercise: (payload) => {
         try {
-          const exercises = get().variables.exercises;
-          const newState = { ...exercises };
-
           if (!payload.exerciseName || !payload.newSet) {
             // Handle the case of invalid input
             console.error('Invalid exercise data provided');
             return;
           }
+
+          const exercises = get().variables.exercises;
+          const newState = { ...exercises };
 
           // if key doesn't yet exist, create exercise obj
           if (newState?.[payload.exerciseName] === undefined) {
@@ -138,6 +142,72 @@ const useSessionStore = createWithEqualityFn<ZustandType>(
           }));
         } catch (error) {
           console.error('Error updating exercises', error);
+        }
+      },
+      deleteExerciseSet: (exerciseName, deleteIndex) => {
+        try {
+          const exercises = get().variables.exercises;
+
+          // Check if the exercise exists
+          if (!exercises[exerciseName]) {
+            throw new Error(
+              `Exercise named '${exerciseName}' not found.`
+            );
+          }
+
+          const currentExercise = { ...exercises[exerciseName] };
+
+          // Check if deleteIndex is within the range of the sets array
+          if (
+            deleteIndex < 0 ||
+            deleteIndex >= currentExercise.sets.length
+          ) {
+            throw new Error(
+              `Invalid deleteIndex: ${deleteIndex}. Must be within the range of available sets.`
+            );
+          }
+
+          currentExercise.totalReps -=
+            currentExercise.sets[deleteIndex].reps;
+
+          const filteredSets = currentExercise.sets.filter(
+            (_, index) => index !== deleteIndex
+          );
+          set((state) => {
+            // Create a copy of the current exercises
+            const newExercises = { ...state.variables.exercises };
+
+            if (filteredSets.length === 0) {
+              // Remove the exercise entry entirely
+              delete newExercises[exerciseName];
+            } else {
+              // Update the sets of the current exercise
+              newExercises[exerciseName] = {
+                ...currentExercise,
+                sets: filteredSets,
+              };
+            }
+
+            return {
+              ...state,
+              variables: {
+                ...state.variables,
+                exercises: newExercises,
+              },
+            };
+          });
+        } catch (error) {
+          if (error instanceof Error) {
+            console.error(
+              'Error in deleteExerciseSet:',
+              error.message
+            );
+          } else {
+            console.error(
+              'An unexpected error occurred in deleteExerciseSet:',
+              error
+            );
+          }
         }
       },
       reset: () => {

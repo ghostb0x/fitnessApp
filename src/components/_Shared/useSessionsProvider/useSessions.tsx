@@ -1,6 +1,11 @@
 'use client';
 import * as React from 'react';
-import { session } from '@/types/types';
+import {
+  session,
+  focusAreaNames,
+  focusAreaType,
+} from '@/types/types';
+import { focusAreas } from '@/data/focusAreas';
 
 type SessionsProviderValueType = ReturnType<
   typeof useSessionsManager
@@ -10,8 +15,28 @@ const SessionsContext =
   React.createContext<SessionsProviderValueType | null>(null);
 
 function useSessionsManager() {
+  // for viewing past session summaries on the /viewPast page
   const [viewSelected, setViewSelected] =
     React.useState<session | null>(null);
+
+
+  // set default value of savedExercises
+  const [savedExercises, setSavedExercises] =
+    React.useState<Record<focusAreaNames, focusAreaType>>(focusAreas);
+
+  function loadSavedExercises() {
+    // on first load, check if localStorage var focusAreas is set
+    const stored =
+      typeof window !== 'undefined'
+        ? window.localStorage.getItem('savedExercises')
+        : null;
+
+    // if stored was not null, get focusAreas from /data/focusAreas
+    if (stored) {
+      let storedExercises: Record<focusAreaNames, focusAreaType> = JSON.parse(stored);
+      setSavedExercises(storedExercises);
+    }
+  }
 
   const [savedSessions, setSavedSessions] = React.useState<session[]>(
     []
@@ -63,6 +88,8 @@ function useSessionsManager() {
     endSession,
     viewSelected,
     setViewSelected,
+    savedExercises,
+    loadSavedExercises
   };
 }
 

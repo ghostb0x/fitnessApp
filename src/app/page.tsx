@@ -7,16 +7,16 @@ import StartButton from '@/components/StartScreen/StartButton';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 
 export default function Home() {
-  const { loadStored } = useSessionsContext();
+  const { loadStored, loadSavedExercises } = useSessionsContext();
 
   React.useEffect(() => {
     loadStored();
-
+    loadSavedExercises()
     // NOTE: Intentionally running effect only on component mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  
+
   return (
     <main className={styles.main}>
       <Calendar />

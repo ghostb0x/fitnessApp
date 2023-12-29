@@ -6,6 +6,7 @@ import { focusAreas } from '@/data/focusAreas';
 import { focusAreaNames } from '@/types/types';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
 import styled from 'styled-components';
+import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 
 // when button to Log Set is clicked
 // 1 - creates an exercise shaped object
@@ -17,12 +18,18 @@ function LogSetButtonBar() {
   const [clicked, setClicked] = React.useState('');
   const [inputExercise, setInputExercise] = React.useState('');
 
+  const { savedExercises } = useSessionsContext();
+
+  React.useEffect( () => {
+
+  }, [savedExercises])
+
   let selectedAreas = useBoundStore(
     (state) => state.variables.focusAreas
   );
 
   let currentExercises =
-    focusAreas[clicked as focusAreaNames]?.exercises;
+    savedExercises[clicked as focusAreaNames]?.exercises;
 
   return (
     <Wrapper>
@@ -117,6 +124,6 @@ const EditButton = styled.button`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export default LogSetButtonBar;

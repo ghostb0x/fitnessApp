@@ -20,9 +20,14 @@ function LogSetButtonBar() {
 
   const { savedExercises } = useSessionsContext();
 
-  React.useEffect( () => {
+  React.useEffect(() => {
+    // update localStorage with new exercises after each update to list
+  }, [savedExercises]);
 
-  }, [savedExercises])
+  // for opening edit mode to modify the list of exercises
+  const [editMode, setEditMode] = React.useState(false);
+
+  function editExercises() {}
 
   let selectedAreas = useBoundStore(
     (state) => state.variables.focusAreas
@@ -59,10 +64,14 @@ function LogSetButtonBar() {
         <Row>
           <Spacer />
           <SectionTitle>{clicked} Exercises</SectionTitle>
-          <EditButton>+/-</EditButton>
+          <EditButton onClick={() => setEditMode(!editMode)}>
+            +/-
+          </EditButton>
         </Row>
       ) : null}{' '}
-      {currentExercises ? (
+      {/* if edit mode is true, display edit component */}
+      {/* else if false, display Buttons for setting setInputExercise */}
+      {editMode ? null : currentExercises ? (
         currentExercises.map((exercise) => (
           <Button
             key={exercise}

@@ -15,19 +15,91 @@ import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 // 4 - and saves it to local storage
 
 function LogSetButtonBar() {
-  const [clicked, setClicked] = React.useState('');
+  const [clicked, setClicked] = React.useState<
+    focusAreaNames | 'HIIT' | null
+  >(null);
   const [inputExercise, setInputExercise] = React.useState('');
 
-  const { savedExercises } = useSessionsContext();
+  const { savedExercises, setSavedExercises } = useSessionsContext();
 
   React.useEffect(() => {
-    // update localStorage with new exercises after each update to list
+    console.log('Before setting storage:', savedExercises);
+    // update localStorage var at 'savedExercises' with new value of
+    // savedExercises state var after each update to savedExercises state var
+    window.localStorage.setItem(
+      'savedExercises',
+      JSON.stringify(savedExercises)
+    );
+
+    console.log('after setting storage:', savedExercises);
   }, [savedExercises]);
 
   // for opening edit mode to modify the list of exercises
   const [editMode, setEditMode] = React.useState(false);
 
-  function editExercises() {}
+  // for adding new exercise to savedExercises when in editMode (editMode === true)
+  function addExercise(
+    focusAreaName: focusAreaNames,
+    newExercise: string
+  ) {
+    // push newExercise to state array at
+    // savedExercises[focusAreaName][exercises].push(newExercise)
+    setSavedExercises((prevExercises) => {
+      const updatedExercises = structuredClone(prevExercises);
+      if (updatedExercises[focusAreaName]) {
+        updatedExercises[focusAreaName].exercises.push(newExercise);
+      }
+      return updatedExercises;
+    });
+  }
+
+  // for removing specified exercise to savedExercises when in editMode (editMode === true)
+
+  function removeExercise(
+    focusAreaName: focusAreaNames,
+    removalIndex: number
+  ) {
+    console.log(
+      'Before removal:',
+      savedExercises[focusAreaName].exercises
+    );
+    setSavedExercises((prevExercises) => {
+      const updatedExercises = structuredClone(prevExercises);
+      if (updatedExercises[focusAreaName]) {
+        updatedExercises[focusAreaName].exercises.splice(
+          removalIndex,
+          1
+        );
+      }
+      return updatedExercises;
+    });
+    console.log(
+      'After removal:',
+      savedExercises[focusAreaName].exercises
+    );
+  }
+
+  // create component to map over currentExercises var and display exercise name
+  // and a remove button when in edit mode to remove exercise from currentExercise
+  // also add an text input with "add" button to submit
+  // submissions will update currentExercise
+  function editExercisesMenu() {
+    // Ensure currentExercises is defined and clicked is not null or 'HIIT'
+    if (!currentExercises || clicked === null || clicked === 'HIIT') {
+      return null;
+    }
+
+    return currentExercises.map((exercise, index) => (
+      <div key={`${exercise}-${index}`}>
+        {' '}
+        {/* Unique Key */}
+        {exercise}
+        <button onClick={() => removeExercise(clicked, index)}>
+          Remove
+        </button>
+      </div>
+    ));
+  }
 
   let selectedAreas = useBoundStore(
     (state) => state.variables.focusAreas
@@ -53,7 +125,9 @@ function LogSetButtonBar() {
               key={area}
               onClick={() => {
                 setInputExercise('');
-                clicked === area ? setClicked('') : setClicked(area);
+                clicked === area
+                  ? setClicked(null)
+                  : setClicked(area);
               }}
             >
               {area}
@@ -71,7 +145,9 @@ function LogSetButtonBar() {
       ) : null}{' '}
       {/* if edit mode is true, display edit component */}
       {/* else if false, display Buttons for setting setInputExercise */}
-      {editMode ? null : currentExercises ? (
+      {editMode ? (
+        editExercisesMenu()
+      ) : currentExercises ? (
         currentExercises.map((exercise) => (
           <Button
             key={exercise}

@@ -89,6 +89,7 @@ function useSessionsManager() {
     viewSelected,
     setViewSelected,
     savedExercises,
+    setSavedExercises,
     loadSavedExercises
   };
 }

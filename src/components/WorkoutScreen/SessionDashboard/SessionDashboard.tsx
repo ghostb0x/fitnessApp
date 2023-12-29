@@ -12,16 +12,23 @@ interface IDashboardProps {
   displaySessionId: string;
   hiitSessions: HiitSession[];
   exercises: Record<string, exercise>;
+  editMode?: boolean;
 }
 
 function SessionDashboard({
   displaySessionId,
   hiitSessions,
   exercises,
+  editMode,
 }: IDashboardProps) {
   const { savedSessions, viewSelected } = useSessionsContext();
 
-  const deleteExerciseSet = useBoundStore( (state) => state.actions.deleteExerciseSet)
+  // use of allowEdits will depend on component prompt editMode == true
+  const [allowEdits, setAllowEdits] = React.useState(false);
+
+  const deleteExerciseSet = useBoundStore(
+    (state) => state.actions.deleteExerciseSet
+  );
 
   const displayHiit = hiitSessions.length ? (
     <div>
@@ -76,7 +83,13 @@ function SessionDashboard({
               <p>
                 Set {index + 1}: {set.reps} reps at {set.weight} lbs
               </p>
-              <EditButton onClick={() => deleteExerciseSet(name, index)}>+/-</EditButton>
+              {allowEdits ? (
+                <EditButton
+                  onClick={() => deleteExerciseSet(name, index)}
+                >
+                  +/-
+                </EditButton>
+              ) : null}
             </div>
           ))}
           <div>
@@ -97,6 +110,11 @@ function SessionDashboard({
   return (
     <Wrapper>
       <SectionTitle>Logged Sets</SectionTitle>
+      {editMode ? (
+        <EditButton onClick={() => setAllowEdits(!!!allowEdits)}>
+          +/-
+        </EditButton>
+      ) : null}
       <Stats>
         {displayHiit}
         {displayExercises}
@@ -126,7 +144,6 @@ const Stats = styled.div`
   gap: 50px;
 `;
 
-
 const EditButton = styled.button`
   /* position: absolute;
   top: 0;
@@ -145,7 +162,6 @@ const EditButton = styled.button`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-`
-
+`;
 
 export default SessionDashboard;

@@ -8,6 +8,8 @@ import EndWorkoutButton from '@/components/WorkoutScreen/EndWorkoutButton';
 import Timer from '@/components/WorkoutScreen/Timer';
 
 export default function Workout() {
+  
+
   let startTime = new Date();
   let updateId = useBoundStore((state) => state.actions.updateId);
   
@@ -26,9 +28,8 @@ export default function Workout() {
   return (
     <SectionWrapper>
       <SectionTitle>Time to Work Hard!</SectionTitle>
-
       <Timer startTime={startTime} />
-      <SessionDashboard displaySessionId={id} hiitSessions={hiitSessions} exercises={exercises}/>
+      <SessionDashboard displaySessionId={id} hiitSessions={hiitSessions} exercises={exercises} editMode={true}/>
       <LogSetButtonBar />
       <EndWorkoutButton />
     </SectionWrapper>

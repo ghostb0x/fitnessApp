@@ -28,9 +28,13 @@ function EndWorkoutButton() {
   }
 
   return (
-    <Wrapper>
+    <>
       {showSurvey ? (
+        <Wrapper>
         <DifficultySurvey />
+        <SectionTitle>Not Finished Yet?</SectionTitle>
+        <Button onClick={() => setShowSurvey(false)}>Go back</Button>
+        </Wrapper>
       ) : (
         <Button
           onClick={handleEndSession}
@@ -39,13 +43,21 @@ function EndWorkoutButton() {
           End Workout
         </Button>
       )}
-    </Wrapper>
+    </>
   );
 }
 
 const Wrapper = styled.div`
+  border: 1px solid white;
+  border-radius: 1rem;
+  padding: 10px;
   display: flex;
   flex-direction: column;
+`;
+
+const SectionTitle = styled.p`
+  font-size: 25px;
+  text-align: center;
 `;
 
 export default EndWorkoutButton;

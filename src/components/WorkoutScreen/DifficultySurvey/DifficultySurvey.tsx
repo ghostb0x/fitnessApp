@@ -37,9 +37,7 @@ function DifficultySurvey() {
 }
 
 const SectionWrapper = styled.section`
-  border: 1px solid white;
   padding: 30px;
-  border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,6 +49,7 @@ const SectionTitle = styled.h2`
 `;
 
 const SurveyWrapper = styled.div`
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

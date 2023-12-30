@@ -22,22 +22,34 @@ function SessionDashboard({
   // use of allowEdits will depend on component prompt editMode == true
   const [allowEdits, setAllowEdits] = React.useState(false);
 
-  const deleteExerciseSet = useBoundStore(
-    (state) => state.actions.deleteExerciseSet
+  const {deleteExerciseSet, deleteHiitSession} = useBoundStore(
+    (state) => state.actions
   );
 
   const displayHiit = hiitSessions.length ? (
-    <div>
+    <SetDisplay>
       <h3>HIIT Sessions</h3>
       {hiitSessions.map((session, index) => {
         const { routineName, time } = session;
         return (
-          <p key={index}>
-            Session {index + 1} {routineName} - {time} minutes
-          </p>
+          <>
+            {allowEdits ? (
+              <DeleteButton
+                key={index}
+                onClick={() => deleteHiitSession(index)}
+              >
+                Delete Session {index + 1} {routineName} - {time}{' '}
+                minutes
+              </DeleteButton>
+            ) : (
+              <p key={index}>
+                Session {index + 1} {routineName} - {time} minutes
+              </p>
+            )}
+          </>
         );
       })}
-    </div>
+    </SetDisplay>
   ) : null;
 
   const displayExercises = Object.keys(exercises).map(
@@ -119,7 +131,7 @@ function SessionDashboard({
             {editMode ? (
               <EditButton
                 title="Delete a logged set"
-                onClick={() => setAllowEdits(!!!allowEdits)}
+                onClick={() => setAllowEdits(!allowEdits)}
               >
                 📝
               </EditButton>
@@ -180,7 +192,6 @@ const SetDisplay = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  line-height: 0;
 `;
 
 const DeleteButton = styled.button`

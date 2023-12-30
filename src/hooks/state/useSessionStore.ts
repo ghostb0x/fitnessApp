@@ -33,6 +33,7 @@ type ActionTypeFromStateShape<State> = {
 // utility type generated types
 type SessionActions = ActionTypeFromStateShape<session> & {
   addNewHiitSession: (newSession: HiitSession) => void;
+  deleteHiitSession: (deleteIndex: number) => void;
   addNewExercise: (newExercise: newExercisePayload) => void;
   deleteExerciseSet: (
     exerciseName: string,
@@ -107,7 +108,43 @@ const useSessionStore = createWithEqualityFn<ZustandType>(
             ],
           },
         })),
+      deleteHiitSession: (deleteIndex) => {
+        try {
+          const hiitSessions = get().variables.hiitSessions;
 
+          // Check if deleteIndex is within the range of the sets array
+          if (deleteIndex < 0 || deleteIndex >= hiitSessions.length) {
+            throw new Error(
+              `Invalid deleteIndex: ${deleteIndex}. Must be within the range of logged sessions.`
+            );
+          }
+
+          const filteredSessions = hiitSessions.filter(
+            (_, index) => index !== deleteIndex
+          );
+          set((state) => {
+            return {
+              ...state,
+              variables: {
+                ...state.variables,
+                hiitSessions: filteredSessions,
+              },
+            };
+          });
+        } catch (error) {
+          if (error instanceof Error) {
+            console.error(
+              'Error in deleteHiitSession:',
+              error.message
+            );
+          } else {
+            console.error(
+              'An unexpected error occurred in deleteHiitSession:',
+              error
+            );
+          }
+        }
+      },
       addNewExercise: (payload) => {
         try {
           if (!payload.exerciseName || !payload.newSet) {

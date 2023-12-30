@@ -25,7 +25,6 @@ function SelectFocusArea() {
           );
         })}
       </ButtonBlock>
-
     </SectionWrapper>
   );
 }
@@ -40,10 +39,12 @@ const SectionTitle = styled.h2`
 `;
 
 const ButtonBlock = styled.div`
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  padding-bottom: 50px;
 `;
 
 

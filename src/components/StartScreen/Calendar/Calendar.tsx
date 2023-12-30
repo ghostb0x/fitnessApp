@@ -119,7 +119,7 @@ const SectionWrapper = styled.section`
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 10px;
 `;
 

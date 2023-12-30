@@ -121,14 +121,14 @@ function SessionDashboard({
   return (
     <Wrapper>
       <SectionTitle>Logged Sets</SectionTitle>
-      <Stats>
+      <>
         {hiitSessions.length === 0 &&
         Object.keys(exercises).length === 0 ? (
           <PlaceholderText>
             Log a set below to track your workout
           </PlaceholderText>
         ) : (
-          <>
+          <Stats>
             {editMode ? (
               <PositionedEditButton
                 title="Delete a logged set"
@@ -137,9 +137,9 @@ function SessionDashboard({
             ) : null}
             {displayHiit}
             {displayExercises}{' '}
-          </>
+          </Stats>
         )}
-      </Stats>
+      </>
     </Wrapper>
   );
 }
@@ -155,6 +155,7 @@ const SectionTitle = styled.h2`
 `;
 
 const PlaceholderText = styled.p`
+  margin-top: 20px;
   text-align: center;
 `;
 

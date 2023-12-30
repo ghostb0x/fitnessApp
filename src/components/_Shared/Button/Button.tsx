@@ -13,7 +13,7 @@ function Button({ children, color, onClick, ...delegated }: ButtonProps) {
 
 const B = styled.button`
   margin-top: 10px;
-  width: 90%;
+  width: 100%;
   border: none;
   border-radius: 1rem;
   padding: 0.5rem 3rem;

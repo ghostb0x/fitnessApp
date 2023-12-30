@@ -30,6 +30,8 @@ export default function Home() {
   React.useEffect(() => {
     if (selectedAreas.length > 0) {
       setShowNextStep(true);
+    } else {
+      setShowNextStep(false)
     }
   }, [selectedAreas]);
 

@@ -59,6 +59,7 @@ function SelectFocusAreaButton({
 }
 
 const RectangleButton = styled(Button)`
+  margin-top: 0;
   border-radius: 10px;
   width: 302px;
 `;

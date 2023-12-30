@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
 import { differenceInSeconds } from 'date-fns';
 import DifficultySurvey from '@/components/WorkoutScreen/DifficultySurvey';
+import styled from 'styled-components';
 
 function EndWorkoutButton() {
   const [showSurvey, setShowSurvey] = React.useState(false);
@@ -27,7 +28,7 @@ function EndWorkoutButton() {
   }
 
   return (
-    <div>
+    <Wrapper>
       {showSurvey ? (
         <DifficultySurvey />
       ) : (
@@ -38,8 +39,13 @@ function EndWorkoutButton() {
           End Workout
         </Button>
       )}
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export default EndWorkoutButton;

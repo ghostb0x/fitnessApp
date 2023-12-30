@@ -13,20 +13,20 @@ function Button({ children, color, onClick, ...delegated }: ButtonProps) {
 
 const B = styled.button`
   margin-top: 10px;
-
-  width: 100%;
+  width: 90%;
   border: none;
-  border-radius: 10rem;
+  border-radius: 1rem;
   padding: 0.5rem 3rem;
-
+  
   background-color: ${(props) => props.color || `var(--color-primary)`};
   text-align: center;
   font-family: var(--font-roboto);
   font-size: 1.3rem;
-
+  
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: center;
 `;
 
 export default Button;

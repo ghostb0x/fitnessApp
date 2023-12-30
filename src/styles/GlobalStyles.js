@@ -90,11 +90,6 @@ html {
 
   --font-form-fields: normal var(--font-weight-medium) 1rem/1.625rem var(--font-family);
 
-  /* font-variant: normal "slashed-zero"; */
-
-  /* Universal left and right padding  */
-  --mobile-padding: 16px;
-  --laptop-padding: clamp(2rem, 12vw - 3.25rem, 10rem);
 
 }
 

@@ -102,9 +102,8 @@ const StyledSelect = styled.select`
 const SubmitButton = styled.input`
   margin-top: 10px;
   width: 100%;
-  height: 60px;
   border: none;
-  border-radius: 10rem;
+  border-radius: 1rem;
   padding: 0.5rem 3rem;
   text-align: center;
   font-family: var(--font-roboto);

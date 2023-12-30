@@ -26,9 +26,6 @@ function SelectFocusArea() {
         })}
       </ButtonBlock>
 
-      <SelectedPlan>
-        Today&apos;s Selected Focus Areas: {selectedAreas.join(', ')}
-      </SelectedPlan>
     </SectionWrapper>
   );
 }
@@ -46,12 +43,8 @@ const ButtonBlock = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
 `;
 
-const SelectedPlan = styled.p`
-  margin-top: 30px;
-  width: 100%;
-  text-align: center;
-`;
 
 export default SelectFocusArea;

@@ -171,7 +171,11 @@ function LogSetButtonBar() {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
 const SectionTitle = styled.h3`
   margin-top: 15px;

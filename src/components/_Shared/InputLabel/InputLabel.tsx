@@ -6,12 +6,12 @@ interface LabelProps {
   htmlFor: string;
 }
 
-function InputLabel({children, htmlFor}: LabelProps) {
+function InputLabel({ children, htmlFor }: LabelProps) {
   return <StyledLabel htmlFor={htmlFor}>{children}</StyledLabel>;
 }
 
 const StyledLabel = styled.label`
-  font-size: 25px;
+  font-size: 1.3rem;
   width: 100%;
 `;
 

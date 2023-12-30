@@ -20,7 +20,7 @@ const B = styled.button`
   
   background-color: ${(props) => props.color || `var(--color-primary)`};
   text-align: center;
-  font-family: var(--font-roboto);
+  /* font-family: var(--font-roboto); */
   font-size: 1.3rem;
   
   display: flex;

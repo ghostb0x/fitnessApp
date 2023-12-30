@@ -2,10 +2,7 @@ import * as React from 'react';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
 import styled from 'styled-components';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
-import {
-  HiitSession,
-  exercise,
-} from '@/types/types';
+import { HiitSession, exercise } from '@/types/types';
 
 interface IDashboardProps {
   displaySessionId: string;
@@ -75,20 +72,19 @@ function SessionDashboard({
       const { name, sets, totalReps } = exercises[exercise];
 
       return (
-        <div key={index}>
+        <SetDisplay key={index}>
           <h3>{name}</h3>
           {sets.map((set, index) => (
             <div key={index}>
-              <p>
-                Set {index + 1}: {set.reps} reps at {set.weight} lbs
-              </p>
               {allowEdits ? (
-                <EditButton
+                <DeleteButton
                   onClick={() => deleteExerciseSet(name, index)}
                 >
-                  +/-
-                </EditButton>
-              ) : null}
+                  Delete Set {index + 1}: {set.reps} reps at {set.weight} lbs
+                </DeleteButton>
+              ) : <p>
+              Set {index + 1}: {set.reps} reps at {set.weight} lbs
+            </p>}
             </div>
           ))}
           <div>
@@ -101,7 +97,7 @@ function SessionDashboard({
               ? previousTotalComponent
               : null}
           </div>
-        </div>
+        </SetDisplay>
       );
     }
   );
@@ -110,13 +106,23 @@ function SessionDashboard({
     <Wrapper>
       <SectionTitle>Logged Sets</SectionTitle>
       <Stats>
-      {editMode ? (
-        <EditButton onClick={() => setAllowEdits(!!!allowEdits)}>
-          +/-
-        </EditButton>
-      ) : null}
-        {displayHiit}
-        {displayExercises}
+        {hiitSessions.length === 0 &&
+        Object.keys(exercises).length === 0 ? (
+          <PlaceholderText>Log a set below to track your workout</PlaceholderText>
+        ) : (
+          <>
+            {editMode ? (
+              <EditButton
+                title='Delete a logged set'
+                onClick={() => setAllowEdits(!!!allowEdits)}
+              >
+                📝
+              </EditButton>
+            ) : null}
+            {displayHiit}
+            {displayExercises}{' '}
+          </>
+        )}
       </Stats>
     </Wrapper>
   );
@@ -131,6 +137,11 @@ const SectionTitle = styled.h2`
   font-size: 18px;
   text-align: center;
 `;
+
+const PlaceholderText = styled.p`
+  text-align: center;
+
+`
 
 const Stats = styled.div`
   margin-top: 10px;
@@ -149,14 +160,41 @@ const EditButton = styled.button`
   right: 0;
    */
   border: none;
-  border-radius: 10rem;
-  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  padding: 0.2rem 0.2rem;
 
   background-color: cornflowerblue;
   text-align: center;
   font-family: var(--font-roboto);
-  font-size: 0.8rem;
+  font-size: 1.5rem;
   width: 51px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SetDisplay = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  line-height: 0;
+`;
+
+const DeleteButton = styled.button`
+  /* position: absolute;
+  top: 0;
+  right: 0;
+   */
+  border: none;
+  border-radius: 1rem;
+  padding: 0.2rem 0.2rem;
+
+  background-color: red;
+  text-align: center;
+  font-family: var(--font-roboto);
+  font-size: 1rem;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

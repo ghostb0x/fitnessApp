@@ -48,7 +48,7 @@ function HIITLogForm() {
       weight: Number(data.weight),
     };
 
-    // send to reducer
+    // update Zustand store
     addNewHiitSession(newHIIT);
   };
 

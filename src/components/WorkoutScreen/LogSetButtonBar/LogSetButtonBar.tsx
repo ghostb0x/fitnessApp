@@ -2,6 +2,7 @@ import * as React from 'react';
 import Button from '@/components/_Shared/Button';
 import HIITLogForm from '../HIITLogForm';
 import ExerciseLogForm from '../ExerciseLogForm';
+import AddExerciseForm from '../AddExerciseForm';
 import { focusAreas } from '@/data/focusAreas';
 import { focusAreaNames } from '@/types/types';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
@@ -89,16 +90,24 @@ function LogSetButtonBar() {
       return null;
     }
 
-    return currentExercises.map((exercise, index) => (
-      <div key={`${exercise}-${index}`}>
-        {' '}
-        {/* Unique Key */}
-        {exercise}
-        <button onClick={() => removeExercise(clicked, index)}>
-          Remove
-        </button>
-      </div>
-    ));
+    return (
+      <>
+        {currentExercises.map((exercise, index) => (
+          <div key={`${exercise}-${index}`}>
+            {' '}
+            {/* Unique Key */}
+            {exercise}
+            <button onClick={() => removeExercise(clicked, index)}>
+              Remove
+            </button>
+          </div>
+        ))}
+        <AddExerciseForm
+          focusAreaName={clicked}
+          addExercise={addExercise}
+        />
+      </>
+    );
   }
 
   let selectedAreas = useBoundStore(
@@ -113,7 +122,7 @@ function LogSetButtonBar() {
       <SectionTitle>Log new set</SectionTitle>
       <Button
         onClick={() => {
-          clicked === 'HIIT' ? setClicked('') : setClicked('HIIT');
+          clicked === 'HIIT' ? setClicked(null) : setClicked('HIIT');
           setInputExercise('');
         }}
       >

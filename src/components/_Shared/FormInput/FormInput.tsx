@@ -24,6 +24,16 @@ const FormInput = React.forwardRef<
         />
       );
       break;
+    case 'text':
+      component = (
+        <StyledInput
+          id={id}
+          type="text"
+          ref={ref as React.Ref<HTMLInputElement>}
+          {...delegated}
+        />
+      );
+      break;
     case 'submit':
       component = (
         <SubmitButton

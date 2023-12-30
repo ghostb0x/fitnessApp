@@ -5,7 +5,6 @@ import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import {
   HiitSession,
   exercise,
-  newExercisePayload,
 } from '@/types/types';
 
 interface IDashboardProps {
@@ -110,12 +109,12 @@ function SessionDashboard({
   return (
     <Wrapper>
       <SectionTitle>Logged Sets</SectionTitle>
+      <Stats>
       {editMode ? (
         <EditButton onClick={() => setAllowEdits(!!!allowEdits)}>
           +/-
         </EditButton>
       ) : null}
-      <Stats>
         {displayHiit}
         {displayExercises}
       </Stats>

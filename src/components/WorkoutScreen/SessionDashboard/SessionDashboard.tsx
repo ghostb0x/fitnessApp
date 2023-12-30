@@ -80,11 +80,14 @@ function SessionDashboard({
                 <DeleteButton
                   onClick={() => deleteExerciseSet(name, index)}
                 >
-                  Delete Set {index + 1}: {set.reps} reps at {set.weight} lbs
+                  Delete Set {index + 1}: {set.reps} reps at{' '}
+                  {set.weight} lbs
                 </DeleteButton>
-              ) : <p>
-              Set {index + 1}: {set.reps} reps at {set.weight} lbs
-            </p>}
+              ) : (
+                <p>
+                  Set {index + 1}: {set.reps} reps at {set.weight} lbs
+                </p>
+              )}
             </div>
           ))}
           <div>
@@ -108,12 +111,14 @@ function SessionDashboard({
       <Stats>
         {hiitSessions.length === 0 &&
         Object.keys(exercises).length === 0 ? (
-          <PlaceholderText>Log a set below to track your workout</PlaceholderText>
+          <PlaceholderText>
+            Log a set below to track your workout
+          </PlaceholderText>
         ) : (
           <>
             {editMode ? (
               <EditButton
-                title='Delete a logged set'
+                title="Delete a logged set"
                 onClick={() => setAllowEdits(!!!allowEdits)}
               >
                 📝
@@ -140,38 +145,35 @@ const SectionTitle = styled.h2`
 
 const PlaceholderText = styled.p`
   text-align: center;
-
-`
+`;
 
 const Stats = styled.div`
   margin-top: 10px;
   border: 1px solid white;
   border-radius: 15px;
   padding: 20px;
+  padding-top: 25px;
   display: grid;
   /* want columns to repeat based on number of divs as children */
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 50px;
+
+  position: relative;
 `;
 
 const EditButton = styled.button`
-  /* position: absolute;
-  top: 0;
-  right: 0;
-   */
+  position: absolute;
+  top: 10px;
+  right: 10px;
   border: none;
   border-radius: 1rem;
   padding: 0.2rem 0.2rem;
 
   background-color: cornflowerblue;
   text-align: center;
-  font-family: var(--font-roboto);
   font-size: 1.5rem;
   width: 51px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  align-self: flex-end;
 `;
 
 const SetDisplay = styled.div`
@@ -182,12 +184,8 @@ const SetDisplay = styled.div`
 `;
 
 const DeleteButton = styled.button`
-  /* position: absolute;
-  top: 0;
-  right: 0;
-   */
   border: none;
-  border-radius: 1rem;
+  border-radius: 0.3rem;
   padding: 0.2rem 0.2rem;
 
   background-color: red;

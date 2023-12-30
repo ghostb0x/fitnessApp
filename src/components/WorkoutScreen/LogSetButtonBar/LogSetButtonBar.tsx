@@ -30,7 +30,6 @@ function LogSetButtonBar() {
       'savedExercises',
       JSON.stringify(savedExercises)
     );
-
   }, [savedExercises]);
 
   // for opening edit mode to modify the list of exercises
@@ -58,7 +57,6 @@ function LogSetButtonBar() {
     focusAreaName: focusAreaNames,
     removalIndex: number
   ) {
-    
     setSavedExercises((prevExercises) => {
       const updatedExercises = structuredClone(prevExercises);
       if (updatedExercises[focusAreaName]) {
@@ -69,7 +67,6 @@ function LogSetButtonBar() {
       }
       return updatedExercises;
     });
-    
   }
 
   // create component to map over currentExercises var and display exercise name
@@ -83,22 +80,20 @@ function LogSetButtonBar() {
     }
 
     return (
-      <>
+      <EditExerciseMenuWrapper>
         {currentExercises.map((exercise, index) => (
-          <div key={`${exercise}-${index}`}>
-            {' '}
-            {/* Unique Key */}
-            {exercise}
-            <button onClick={() => removeExercise(clicked, index)}>
-              Remove
-            </button>
-          </div>
+          <DeleteButton
+            key={`${exercise}-${index}`}
+            onClick={() => removeExercise(clicked, index)}
+          >
+            Delete {exercise} from {clicked} exercises
+          </DeleteButton>
         ))}
         <AddExerciseForm
           focusAreaName={clicked}
           addExercise={addExercise}
         />
-      </>
+      </EditExerciseMenuWrapper>
     );
   }
 
@@ -139,8 +134,11 @@ function LogSetButtonBar() {
         <Row>
           <Spacer />
           <SectionTitle>{clicked} Exercises</SectionTitle>
-          <EditButton onClick={() => setEditMode(!editMode)}>
-            +/-
+          <EditButton
+            title={`Add or delete exercises from ${clicked}`}
+            onClick={() => setEditMode(!editMode)}
+          >
+            📝
           </EditButton>
         </Row>
       ) : null}{' '}
@@ -190,6 +188,8 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
+
 `;
 
 const Spacer = styled.div`
@@ -197,19 +197,36 @@ const Spacer = styled.div`
 `;
 
 const EditButton = styled.button`
-  /* position: absolute;
-  top: 0;
-  right: 0;
-   */
   border: none;
-  border-radius: 10rem;
-  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  padding: 0.2rem 0.2rem;
 
   background-color: cornflowerblue;
   text-align: center;
+  font-size: 1.5rem;
+  min-width: 51px;
+`;
+
+const EditExerciseMenuWrapper = styled.div`
+  border: 1px solid white;
+  border-radius: 1rem;
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const DeleteButton = styled.button`
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.2rem 0.2rem;
+
+  background-color: red;
+  text-align: center;
   font-family: var(--font-roboto);
-  font-size: 0.8rem;
-  width: 51px;
+  font-size: 1rem;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

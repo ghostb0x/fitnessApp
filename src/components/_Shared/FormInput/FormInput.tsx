@@ -78,7 +78,7 @@ const StyledInput = styled.input`
   margin-bottom: 15px;
   width: 100%;
   height: 30px;
-  font-size: 25px;
+  font-size: 1.25rem;
 `;
 
 const StyledCheckbox = styled.input`

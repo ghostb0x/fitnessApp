@@ -57,7 +57,7 @@ function AddExerciseForm({
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <InputLabel htmlFor="exerciseName">Add New Exercise</InputLabel>
+      <label htmlFor="exerciseName">Add New Exercise</label>
       <Controller
         name="exerciseName"
         control={control}

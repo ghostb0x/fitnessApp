@@ -67,7 +67,7 @@ function LogSetButtonBar() {
   // and a remove button when in edit mode to remove exercise from currentExercise
   // also add an text input with "add" button to submit
   // submissions will update currentExercise
-  function editExercisesMenu() {
+  function EditExercisesMenu() {
     // Ensure currentExercises is defined and clicked is not null or 'HIIT'
     if (!currentExercises || clicked === null || clicked === 'HIIT') {
       return null;
@@ -137,7 +137,7 @@ function LogSetButtonBar() {
       {/* if edit mode is true, display edit component */}
       {/* else if false, display Buttons for setting setInputExercise */}
       {editMode ? (
-        editExercisesMenu()
+        <EditExercisesMenu />
       ) : currentExercises ? (
         currentExercises.map((exercise) => (
           <Button

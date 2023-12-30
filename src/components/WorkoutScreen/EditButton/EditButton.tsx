@@ -1,18 +1,17 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-interface IEditButton {
+interface IEditButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   onClick: () => void;
-  className: string;
 }
 
-function EditButton({ title, onClick, className }: IEditButton) {
+function EditButton({ title, onClick, ...delegated }: IEditButton) {
   return (
     <Button
       title={title}
       onClick={onClick}
-      className={className}
+      {...delegated}
     >
       📝
     </Button>

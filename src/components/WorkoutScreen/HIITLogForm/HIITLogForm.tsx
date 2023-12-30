@@ -6,6 +6,7 @@ import InputLabel from '@/components/_Shared/InputLabel';
 import FormInput from '@/components/_Shared/FormInput';
 import styled from 'styled-components';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
+import EditButton from '../EditButton';
 
 interface Inputs {
   routineName: string;
@@ -23,6 +24,9 @@ function HIITLogForm() {
   let addNewHiitSession = useBoundStore(
     (state) => state.actions.addNewHiitSession
   );
+
+  const [editMode, setEditMode] = React.useState(false);
+
 
   const {
     register,
@@ -65,6 +69,10 @@ function HIITLogForm() {
   return (
     <Wrapper>
       <SectionTitle>Log HIIT Session</SectionTitle>
+      <PositionedEditButton 
+        title="Edit HIIT routine selection" 
+        onClick={() => setEditMode(!editMode)}/>
+        {editMode ? /*show form*/ "letsgo" : null}
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputLabel htmlFor="routine-name">Routine Name</InputLabel>
         <Controller
@@ -141,6 +149,15 @@ const Wrapper = styled.div`
   border: 1px solid white;
   border-radius: 15px;
   padding: 15px;
+
+  position: relative;
+`;
+
+
+const PositionedEditButton = styled(EditButton)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
 `;
 
 const SectionTitle = styled.h3`

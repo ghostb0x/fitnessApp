@@ -19,6 +19,24 @@ function useSessionsManager() {
   const [viewSelected, setViewSelected] =
     React.useState<session | null>(null);
 
+  // set default value of savedHiitRoutines
+  const [savedHiitRoutines, setSavedHiitRoutines] = React.useState<
+    string[]
+  >(['Back Day', 'Leg Day', 'Cardio Abs', 'Six Pack Abs']);
+
+  function loadSavedHiitRoutines() {
+    // on first load, check if localStorage var hiitRoutines is set
+    const stored =
+      typeof window !== 'undefined'
+        ? window.localStorage.getItem('hiitRoutines')
+        : null;
+
+    // if stored was not null, get focusAreas from /data/focusAreas
+    if (stored) {
+      let storedHiitRoutines: string[] = JSON.parse(stored);
+      setSavedHiitRoutines(storedHiitRoutines);
+    }
+  }
 
   // set default value of savedExercises
   const [savedExercises, setSavedExercises] =
@@ -33,7 +51,8 @@ function useSessionsManager() {
 
     // if stored was not null, get focusAreas from /data/focusAreas
     if (stored) {
-      let storedExercises: Record<focusAreaNames, focusAreaType> = JSON.parse(stored);
+      let storedExercises: Record<focusAreaNames, focusAreaType> =
+        JSON.parse(stored);
       setSavedExercises(storedExercises);
     }
   }
@@ -53,7 +72,7 @@ function useSessionsManager() {
       // for backfilling ids prior to implementing session ids
       let storedSessions: session[] = JSON.parse(stored);
       storedSessions.forEach((session) => {
-        if (!!!Object.keys(session).includes('id')) {
+        if (!Object.keys(session).includes('id')) {
           session.id = crypto.randomUUID();
         }
       });
@@ -90,7 +109,10 @@ function useSessionsManager() {
     setViewSelected,
     savedExercises,
     setSavedExercises,
-    loadSavedExercises
+    loadSavedExercises,
+    savedHiitRoutines,
+    setSavedHiitRoutines,
+    loadSavedHiitRoutines,
   };
 }
 

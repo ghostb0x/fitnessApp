@@ -5,6 +5,7 @@ import Form from '@/components/_Shared/Form';
 import InputLabel from '@/components/_Shared/InputLabel';
 import FormInput from '@/components/_Shared/FormInput';
 import styled from 'styled-components';
+import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 
 interface Inputs {
   routineName: string;
@@ -13,14 +14,20 @@ interface Inputs {
   weight: number | '';
 }
 
-const Routines: Record<string, number> = {
-  'Back Day': 0,
-  'Leg Day': 0,
-  'Cardio Abs': 0,
-  'Six Pack Abs': 0,
-};
+// replace these with state var from local storage
+const Routines: string[] = [
+  'Back Day',
+  'Leg Day',
+  'Cardio Abs',
+  'Six Pack Abs',
+];
 
 function HIITLogForm() {
+  const {
+    savedHiitRoutines,
+    setSavedHiitRoutines,
+  } = useSessionsContext();
+
   let addNewHiitSession = useBoundStore(
     (state) => state.actions.addNewHiitSession
   );
@@ -77,7 +84,7 @@ function HIITLogForm() {
               type="select"
               {...field}
             >
-              {Object.keys(Routines).map((routine) => (
+              {savedHiitRoutines.map((routine) => (
                 <option
                   key={routine}
                   value={routine}

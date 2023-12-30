@@ -10,11 +10,12 @@ import { useBoundStore } from '@/hooks/state/useSessionStore';
 import styled from 'styled-components';
 
 export default function Home() {
-  const { loadStored, loadSavedExercises } = useSessionsContext();
+  const { loadStored, loadSavedExercises, loadSavedHiitRoutines } = useSessionsContext();
 
   React.useEffect(() => {
     loadStored();
     loadSavedExercises();
+    loadSavedHiitRoutines();
     // NOTE: Intentionally running effect only on component mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

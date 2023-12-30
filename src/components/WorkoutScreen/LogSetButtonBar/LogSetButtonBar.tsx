@@ -3,17 +3,11 @@ import Button from '@/components/_Shared/Button';
 import HIITLogForm from '../HIITLogForm';
 import ExerciseLogForm from '../ExerciseLogForm';
 import AddExerciseForm from '../AddExerciseForm';
-import { focusAreas } from '@/data/focusAreas';
 import { focusAreaNames } from '@/types/types';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
 import styled from 'styled-components';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 
-// when button to Log Set is clicked
-// 1 - creates an exercise shaped object
-// 2 - updates the exercise object
-// 3 - updates the currentSession
-// 4 - and saves it to local storage
 
 function LogSetButtonBar() {
   const [clicked, setClicked] = React.useState<

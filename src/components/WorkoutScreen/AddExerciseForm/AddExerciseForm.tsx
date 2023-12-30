@@ -36,7 +36,12 @@ function AddExerciseForm({
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    const newExercise = data.exerciseName;
+    const newExercise = data.exerciseName.trim();
+
+    if (!newExercise) {
+      throw new Error("Cannot submit empty value")
+      return;
+    }
 
     // update exercises list
     addExercise(focusAreaName, newExercise);
@@ -56,6 +61,7 @@ function AddExerciseForm({
       <Controller
         name="exerciseName"
         control={control}
+        rules={{ required: true }} // React Hook Form validation rule
         render={({ field }) => (
           <FormInput
             id="exerciseName"

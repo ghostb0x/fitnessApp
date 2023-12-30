@@ -27,6 +27,7 @@ const FormInput = React.forwardRef<
     case 'text':
       component = (
         <StyledInput
+          required
           id={id}
           type="text"
           ref={ref as React.Ref<HTMLInputElement>}

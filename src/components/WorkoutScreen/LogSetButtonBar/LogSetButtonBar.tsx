@@ -24,7 +24,6 @@ function LogSetButtonBar() {
   const { savedExercises, setSavedExercises } = useSessionsContext();
 
   React.useEffect(() => {
-    console.log('Before setting storage:', savedExercises);
     // update localStorage var at 'savedExercises' with new value of
     // savedExercises state var after each update to savedExercises state var
     window.localStorage.setItem(
@@ -32,7 +31,6 @@ function LogSetButtonBar() {
       JSON.stringify(savedExercises)
     );
 
-    console.log('after setting storage:', savedExercises);
   }, [savedExercises]);
 
   // for opening edit mode to modify the list of exercises
@@ -60,10 +58,7 @@ function LogSetButtonBar() {
     focusAreaName: focusAreaNames,
     removalIndex: number
   ) {
-    console.log(
-      'Before removal:',
-      savedExercises[focusAreaName].exercises
-    );
+    
     setSavedExercises((prevExercises) => {
       const updatedExercises = structuredClone(prevExercises);
       if (updatedExercises[focusAreaName]) {
@@ -74,10 +69,7 @@ function LogSetButtonBar() {
       }
       return updatedExercises;
     });
-    console.log(
-      'After removal:',
-      savedExercises[focusAreaName].exercises
-    );
+    
   }
 
   // create component to map over currentExercises var and display exercise name

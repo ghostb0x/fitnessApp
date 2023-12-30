@@ -3,6 +3,7 @@ import { useBoundStore } from '@/hooks/state/useSessionStore';
 import styled from 'styled-components';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import { HiitSession, exercise } from '@/types/types';
+import EditButton from '../EditButton';
 
 interface IDashboardProps {
   displaySessionId: string;
@@ -22,7 +23,7 @@ function SessionDashboard({
   // use of allowEdits will depend on component prompt editMode == true
   const [allowEdits, setAllowEdits] = React.useState(false);
 
-  const {deleteExerciseSet, deleteHiitSession} = useBoundStore(
+  const { deleteExerciseSet, deleteHiitSession } = useBoundStore(
     (state) => state.actions
   );
 
@@ -129,12 +130,10 @@ function SessionDashboard({
         ) : (
           <>
             {editMode ? (
-              <EditButton
+              <PositionedEditButton
                 title="Delete a logged set"
                 onClick={() => setAllowEdits(!allowEdits)}
-              >
-                📝
-              </EditButton>
+              />
             ) : null}
             {displayHiit}
             {displayExercises}{' '}
@@ -173,19 +172,11 @@ const Stats = styled.div`
   position: relative;
 `;
 
-const EditButton = styled.button`
+const PositionedEditButton = styled(EditButton)`
   position: absolute;
   top: 10px;
   right: 10px;
-  border: none;
-  border-radius: 1rem;
-  padding: 0.2rem 0.2rem;
-
-  background-color: cornflowerblue;
-  text-align: center;
-  font-size: 1.5rem;
-  width: 51px;
-  align-self: flex-end;
+  
 `;
 
 const SetDisplay = styled.div`

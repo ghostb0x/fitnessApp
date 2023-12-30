@@ -7,7 +7,7 @@ import { focusAreaNames } from '@/types/types';
 import { useBoundStore } from '@/hooks/state/useSessionStore';
 import styled from 'styled-components';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
-
+import EditButton from '../EditButton';
 
 function LogSetButtonBar() {
   const [clicked, setClicked] = React.useState<
@@ -131,9 +131,7 @@ function LogSetButtonBar() {
           <EditButton
             title={`Add or delete exercises from ${clicked}`}
             onClick={() => setEditMode(!editMode)}
-          >
-            📝
-          </EditButton>
+          />
         </Row>
       ) : null}{' '}
       {/* if edit mode is true, display edit component */}
@@ -183,22 +181,10 @@ const Row = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-
 `;
 
 const Spacer = styled.div`
   width: 51px;
-`;
-
-const EditButton = styled.button`
-  border: none;
-  border-radius: 1rem;
-  padding: 0.2rem 0.2rem;
-
-  background-color: cornflowerblue;
-  text-align: center;
-  font-size: 1.5rem;
-  min-width: 51px;
 `;
 
 const EditExerciseMenuWrapper = styled.div`

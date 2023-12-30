@@ -14,14 +14,6 @@ interface Inputs {
   weight: number | '';
 }
 
-// replace these with state var from local storage
-const Routines: string[] = [
-  'Back Day',
-  'Leg Day',
-  'Cardio Abs',
-  'Six Pack Abs',
-];
-
 function HIITLogForm() {
   const {
     savedHiitRoutines,

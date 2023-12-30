@@ -146,10 +146,11 @@ const ListItem = styled.li`
   &:hover {
     background-color: green;
   }
+  width: 100%;
 `;
 
 const Spacer = styled.div`
-  height: 15px;
+  height: 5px;
 `;
 
 const DeleteHistory = styled.button`
@@ -157,9 +158,9 @@ const DeleteHistory = styled.button`
   top: 0px;
   right: 0px;
 
-  width: 25px;
-  height: 25px;
-  background-color: green;
+  width: 40px;
+  height: 40px;
+  background-color: red;
   border-radius: 20%;
   display: flex;
   justify-content: center;

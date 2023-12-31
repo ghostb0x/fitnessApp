@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import { HiitSession, exercise } from '@/types/types';
 import EditButton from '../EditButton';
+import DeleteDialog from '@/components/_Shared/DeleteDialog';
 
 interface IDashboardProps {
   displaySessionId: string;
@@ -90,12 +91,16 @@ function SessionDashboard({
           {sets.map((set, index) => (
             <div key={index}>
               {allowEdits ? (
-                <DeleteButton
-                  onClick={() => deleteExerciseSet(name, index)}
+                <DeleteDialog
+                  confirmFunction={() =>
+                    deleteExerciseSet(name, index)
+                  }
                 >
-                  Delete Set {index + 1}: {set.reps} reps at{' '}
-                  {set.weight} lbs
-                </DeleteButton>
+                  <DeleteButton>
+                    Delete Set {index + 1}: {set.reps} reps at{' '}
+                    {set.weight} lbs
+                  </DeleteButton>
+                </DeleteDialog>
               ) : (
                 <p>
                   Set {index + 1}: {set.reps} reps at {set.weight} lbs

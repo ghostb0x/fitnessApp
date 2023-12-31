@@ -8,6 +8,8 @@ interface IDeleteDialogProps {
   confirmFunction: () => void,
 }
 
+// e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
+
 function DeleteDialog({ children, confirmFunction }: IDeleteDialogProps) {
   return (
     <AlertDialog.Root>

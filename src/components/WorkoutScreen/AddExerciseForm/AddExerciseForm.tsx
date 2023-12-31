@@ -39,7 +39,7 @@ function AddExerciseForm({
     const newExercise = data.exerciseName.trim();
 
     if (!newExercise) {
-      throw new Error("Cannot submit empty value")
+      throw new Error('Cannot submit empty value');
       return;
     }
 
@@ -56,27 +56,33 @@ function AddExerciseForm({
   }, [formState, reset]);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="exerciseName">Add New Exercise</label>
-      <Controller
-        name="exerciseName"
-        control={control}
-        rules={{ required: true }} // React Hook Form validation rule
-        render={({ field }) => (
-          <FormInput
-            id="exerciseName"
-            type="text"
-            {...field}
-          />
-        )}
-      />
+    <Wrapper>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputLabel htmlFor="exerciseName">Add New Exercise</InputLabel>
+        <Controller
+          name="exerciseName"
+          control={control}
+          rules={{ required: true }} // React Hook Form validation rule
+          render={({ field }) => (
+            <FormInput
+              id="exerciseName"
+              type="text"
+              {...field}
+            />
+          )}
+        />
 
-      <FormInput
-        id="submit"
-        type="submit"
-      />
-    </Form>
+        <FormInput
+          id="submit"
+          type="submit"
+        />
+      </Form>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  padding: 10px;
+`;
 
 export default AddExerciseForm;

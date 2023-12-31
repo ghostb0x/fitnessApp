@@ -8,6 +8,7 @@ import { useBoundStore } from '@/hooks/state/useSessionStore';
 import styled from 'styled-components';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import EditButton from '../EditButton';
+import DeleteDialog from '@/components/_Shared/DeleteDialog';
 
 function LogSetButtonBar() {
   const [clicked, setClicked] = React.useState<
@@ -76,12 +77,14 @@ function LogSetButtonBar() {
     return (
       <EditExerciseMenuWrapper>
         {currentExercises.map((exercise, index) => (
-          <DeleteButton
+          <DeleteDialog
             key={`${exercise}-${index}`}
-            onClick={() => removeExercise(clicked, index)}
+            confirmFunction={() => removeExercise(clicked, index)}
           >
-            Delete {exercise} from {clicked} exercises
-          </DeleteButton>
+            <DeleteButton>
+              Delete {exercise} from {clicked} exercises
+            </DeleteButton>
+          </DeleteDialog>
         ))}
         <AddExerciseForm
           focusAreaName={clicked}

@@ -29,7 +29,7 @@ function ListItemComp({
     <ListItem onClick={onClick}>
       {showAll ? (
         <Spacer>
-          <DeleteHistory
+          <DeleteButton
             title="Delete from history"
             onClick={(e) => {
               e.stopPropagation();
@@ -37,7 +37,7 @@ function ListItemComp({
             }}
           >
             X
-          </DeleteHistory>
+          </DeleteButton>
         </Spacer>
       ) : null}
       <p>{formatDistanceToNow(parseJSON(startTime))} ago</p>
@@ -153,7 +153,7 @@ const Spacer = styled.div`
   height: 5px;
 `;
 
-const DeleteHistory = styled.button`
+const DeleteButton = styled.button`
   position: absolute;
   top: 0px;
   right: 0px;

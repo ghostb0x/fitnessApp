@@ -1,16 +1,19 @@
-'use client'
+'use client';
 import React from 'react';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import { styled, keyframes } from '@stitches/react';
 
 interface IDeleteDialogProps {
-  children: React.ReactNode,
-  confirmFunction: () => void,
+  children: React.ReactNode;
+  confirmFunction: () => void;
 }
 
 // e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
 
-function DeleteDialog({ children, confirmFunction }: IDeleteDialogProps) {
+function DeleteDialog({
+  children,
+  confirmFunction,
+}: IDeleteDialogProps) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>
@@ -31,7 +34,12 @@ function DeleteDialog({ children, confirmFunction }: IDeleteDialogProps) {
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action asChild>
-              <Button variant="red" onClick={confirmFunction}>Yes, delete item</Button>
+              <Button
+                variant="red"
+                onClick={confirmFunction}
+              >
+                Yes, delete item
+              </Button>
             </AlertDialog.Action>
           </Flex>
         </AlertDialogContent>
@@ -77,14 +85,14 @@ const AlertDialogContent = styled(AlertDialog.Content, {
 
 const AlertDialogTitle = styled(AlertDialog.Title, {
   margin: 0,
-  color: "white",
+  color: 'white',
   fontSize: 17,
   fontWeight: 500,
 });
 
 const AlertDialogDescription = styled(AlertDialog.Description, {
   marginBottom: 20,
-  color: "white",
+  color: 'white',
   fontSize: 15,
   lineHeight: 1.5,
 });
@@ -108,13 +116,13 @@ const Button = styled('button', {
       red: {
         backgroundColor: 'red',
         color: 'white',
-        '&:hover': { backgroundColor: "maroon"},
+        '&:hover': { backgroundColor: 'maroon' },
         '&:focus': { boxShadow: `0 0 0 2px red` },
       },
       blue: {
-        backgroundColor: "var(--color-primary)",
+        backgroundColor: 'var(--color-primary)',
         color: 'white',
-        '&:hover': { backgroundColor: "#065dbb" },
+        '&:hover': { backgroundColor: '#065dbb' },
         '&:focus': { boxShadow: `0 0 0 2px #065dbb` },
       },
     },

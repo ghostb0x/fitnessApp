@@ -36,13 +36,15 @@ function SessionDashboard({
         return (
           <>
             {allowEdits ? (
-              <DeleteButton
+              <DeleteDialog
                 key={index}
-                onClick={() => deleteHiitSession(index)}
+                confirmFunction={() => deleteHiitSession(index)}
               >
-                Delete Session {index + 1} {routineName} - {time}{' '}
-                minutes
-              </DeleteButton>
+                <DeleteButton>
+                  Delete Session {index + 1} {routineName} - {time}{' '}
+                  minutes
+                </DeleteButton>
+              </DeleteDialog>
             ) : (
               <p key={index}>
                 Session {index + 1} {routineName} - {time} minutes

@@ -6,6 +6,7 @@ import Button from '../../_Shared/Button';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import { session } from '@/types/types';
 import { useRouter } from 'next/navigation';
+import DeleteDialog from '@/components/_Shared/DeleteDialog';
 
 interface IListItemCompProps {
   index: number;
@@ -26,24 +27,24 @@ function ListItemComp({
 }: IListItemCompProps) {
   const { deleteSavedSession } = useSessionsContext();
   return (
-    <ListItem onClick={onClick}>
+    <ItemWrapper>
+      <ListItem onClick={onClick}>
+        <p>{formatDistanceToNow(parseJSON(startTime))} ago</p>
+        <p>Focus areas: {focusAreas.join(' + ')} </p>
+        <p>Difficulty: {difficulty}</p>
+      </ListItem>
       {showAll ? (
-        <Spacer>
-          <DeleteButton
-            title="Delete from history"
-            onClick={(e) => {
-              e.stopPropagation();
-              deleteSavedSession(index);
-            }}
-          >
-            X
+        <DeleteDialog
+          confirmFunction={() => {
+            deleteSavedSession(index);
+          }}
+        >
+          <DeleteButton title="Delete from history">
+            Delete Session
           </DeleteButton>
-        </Spacer>
+        </DeleteDialog>
       ) : null}
-      <p>{formatDistanceToNow(parseJSON(startTime))} ago</p>
-      <p>Focus areas: {focusAreas.join(' + ')} </p>
-      <p>Difficulty: {difficulty}</p>
-    </ListItem>
+    </ItemWrapper>
   );
 }
 
@@ -110,6 +111,33 @@ function Calendar() {
   );
 }
 
+const ItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const ListItem = styled.li`
+  position: relative;
+  border: var(--color-primary) 3px solid;
+  padding: 10px;
+  border-radius: 10px;
+  &:hover {
+    background-color: green;
+  }
+  width: 100%;
+`;
+
+const DeleteButton = styled.button`
+  width: 100%;
+  height: 40px;
+  background-color: red;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const SectionWrapper = styled.section`
   border: 1px solid white;
   padding: 30px;
@@ -136,35 +164,6 @@ const List = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-`;
-
-const ListItem = styled.li`
-  position: relative;
-  border: var(--color-primary) 3px solid;
-  padding: 10px;
-  border-radius: 10px;
-  &:hover {
-    background-color: green;
-  }
-  width: 100%;
-`;
-
-const Spacer = styled.div`
-  height: 5px;
-`;
-
-const DeleteButton = styled.button`
-  position: absolute;
-  top: 0px;
-  right: 0px;
-
-  width: 40px;
-  height: 40px;
-  background-color: red;
-  border-radius: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export default Calendar;

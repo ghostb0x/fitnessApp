@@ -3,7 +3,12 @@ import React from 'react';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import { styled, keyframes } from '@stitches/react';
 
-function DeleteDialog({ children, confirmFunction }) {
+interface IDeleteDialogProps {
+  children: React.ReactNode,
+  confirmFunction: () => void,
+}
+
+function DeleteDialog({ children, confirmFunction }: IDeleteDialogProps) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>{children}</AlertDialog.Trigger>

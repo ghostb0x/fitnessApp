@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { useSessionsContext } from '@/components/_Shared/useSessionsProvider';
 import EditButton from '../EditButton';
 import AddHiitRoutineForm from '../AddHiitRoutineForm';
+import DeleteDialog from '@/components/_Shared/DeleteDialog';
 
 interface Inputs {
   routineName: string;
@@ -43,16 +44,17 @@ function HIITLogForm() {
   }
 
   function EditHiitRoutinesMenu() {
-
     return (
       <EditHiitRoutinesMenuWrapper>
         {savedHiitRoutines.map((routine, index) => (
-          <DeleteButton
+          <DeleteDialog
             key={`${routine}-${index}`}
-            onClick={() => removeHiitRoutine(index)}
+            confirmFunction={() => removeHiitRoutine(index)}
           >
-            Delete {routine} from routines list
-          </DeleteButton>
+            <DeleteButton>
+              Delete {routine} from routines list
+            </DeleteButton>
+          </DeleteDialog>
         ))}
         <AddHiitRoutineForm />
       </EditHiitRoutinesMenuWrapper>

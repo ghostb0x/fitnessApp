@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This app is designed to track workout sessions, saving each session's data in a session history (saved in the browser's localStorage) for referencing in future sessions or viewing entire past sessions.
 
-## Getting Started
 
-First, run the development server:
+# Project Purpose and Goal
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This app idea came from my need to track my workout progress in a structured way, and not finding an app that had the right balance of flexibility and simplicity.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The key features I needed were the ability to log the weight and reps of each exercise in my workout, and automatically reference the values from my previous attempt of that same exercise from my workout history.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# Main Challenge: A Highly Modifiable Data Model
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+I needed to define a data model with the flexibility to delete or edit many its parts, including:
 
-## Learn More
+- an entire session (e.g. delete any saved session in history)
+- the user defined exercises for a given focus area (e.g. changing the list of exercises I can log to my session, mid-session)
+- individual set data, in case of user input errors (e.g. mistyping the count of reps when inputting - something I learned was easy to do when fatigued and distracted).
 
-To learn more about Next.js, take a look at the following resources:
+## Solution 1: Zustand for State Management
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+I had heard great things about Zustand, an alternative state management library to heavier solutions, like Redux, and wanted to give it a try.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Defining the state's shape and named action functions was simple, and these can be accessed throughout the app, without the use of React Context providers.
 
-## Deploy on Vercel
+## Solution 2: Local Storage as a Persistent Database
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+I use the browser’s local storage to store stringified versions of the app's main data objects: 
+- the session history after a workout is completed
+- the user-defined exercises of each focus area
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This allows the app to "remember" preferred exercises and reference past sessions. 
+
+These enable useful features like showing the user's stats of their most recent attempt of the same exercise, which gives them a target to meet or beat.
+
+## Solution 3: UI Components for “Edit Mode” and “Delete Confirmation”
+
+After testing earlier versions of the app, I wanted to provide clear guard rails for the user experience of editing data.
+
+I decided to apply a consistent UX upon entering “Edit Mode”, then trigger an alert/dialog pop up with background overlay to obtain the user’s delete confirmation. 
+
+I built the dialog with Radix Primitive’s unstyled component library.
+
+# Lessons Learned
+
+## UI Design is **HARD**
+
+The difference between looking good and looking “meh” is subtle.
+
+Thankfully, most teams include designers to make these decisions. 
+
+On projects like these, I embrace the challenge of building without design files as an opportunity to make UI decisions and sharpen my otherwise dull design skills.
+
+## “Pair-programming” with ChatGPT
+
+This was my first time using ChatGPT for programming. 
+
+I had played around with DALL-E and ChatGPT for generating other content, but had purposely avoided programming with AI before feeling more confident in my ability to code solo.
+
+The following are sub-themes from my experience of “pair-programming” with ChatGPT:
+
+### Learning Through Interaction
+
+In addition to diagnosing errors and suggesting new code, ChatGPT is excellent at explaining how snippets of code work.
+
+- If ChatGPT made some complicated or questionable suggestions, I asked follow up questions to delve deeper into how the code worked
+
+For example, ChatGPT suggested several complex TypeScript Utility Types that were beyond my experience with TypeScript. 
+- One such interaction exposed me to the powerful combo of the “infer” keyword and the `x extends y ? true : false` &nbsp; conditional type in TS
+
+### Trust, but Verify
+
+I also encountered many occasions where ChatGPT’s suggestions simply didn’t work. 
+
+Often these had to do with niche circumstances, such as:
+- Library idiosyncrasies, possibly due to outdated version documentation in its training data
+- Differences in server-side rendering vs client-side, etc.
+
+

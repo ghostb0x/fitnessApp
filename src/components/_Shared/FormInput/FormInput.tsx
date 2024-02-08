@@ -79,6 +79,8 @@ const StyledInput = styled.input`
   width: 100%;
   height: 30px;
   font-size: 1.25rem;
+  color: white;
+  background-color: black;
 `;
 
 const StyledCheckbox = styled.input`
@@ -87,6 +89,8 @@ const StyledCheckbox = styled.input`
   width: 30px;
   font-size: 25px;
   margin-right: auto;
+  color: white;
+  background-color: black;
 `;
 
 const StyledSelect = styled.select`
@@ -96,7 +100,9 @@ const StyledSelect = styled.select`
   font-size: 25px;
   text-align: center;
   font-family: var(--font-roboto);
-  font-size: 1.3rem;
+  font-size: 1.3rem;  
+  color: white;
+  background-color: black;
 `;
 
 const SubmitButton = styled.input`
@@ -109,5 +115,6 @@ const SubmitButton = styled.input`
   font-family: var(--font-roboto);
   font-size: 1.3rem;
   background-color: ${`var(--color-primary)`};
+  color: white;
 `;
 export default FormInput;

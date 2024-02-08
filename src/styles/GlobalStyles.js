@@ -125,7 +125,7 @@ html, body, #root {
 }
 
 body {
-  background-color: var(--color-gray-100);  
+  background-color: black;  
 }
 
 /*
